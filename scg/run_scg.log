@@ -1,0 +1,33 @@
+# Create folders for results of each datasets
+for i in ./input/*.tsv.gz; do 
+	fileName=$(echo $i| cut -d'/' -f 3)
+        #echo $fileName
+        subfname=$(echo $fileName| cut -d'.' -f 1)
+        #echo $subfname
+        mkdir output/$subfname;
+done
+
+# SCG needs a conda env to run
+conda activate scg
+
+# This command will create all the files to run scclone in parallel
+for i in ./input/*.tsv.gz; do
+	fileName=$(echo $i| cut -d'/' -f 3)
+        #echo $fileName
+        subfname=$(echo $fileName| cut -d'.' -f 1)
+	echo "python save_multipleSCGresults.py -opDir output/$subfname -input $i -scg_config ../../SCG_Roth/scg/examples/config.yaml -niters 10000" >> run_scg.sh;
+	echo "#" >> run_scg.sh;
+done
+
+# Run the python command to generate the slurm files
+python gen_jobs.py -input run_scg.sh -n 2 -mem_per_cpu 4GB -p fan_q
+
+#Launch jobs
+for i in `seq 0 6`; do sbatch run_scg.$i.slurm; done
+
+# Get the consensus matrices
+python scg_getGmatrix.py -cp ./output/exp2_2_D_10/cluster_posteriors.tsv.gz -gp ./output/exp2_2_D_10/genotype_posteriors.tsv.gz -output ./consensus_genotype/exp2_2_D_10.tsv
+
+# Evaluate the metrics
+python evaluateMetrics.py -cg ./consensus_genotype/exp2_2_D_10.tsv -gtG ./ground_truth/exp2_2_GT_10.tsv
+

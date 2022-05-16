@@ -1,0 +1,206 @@
+
+DPMM with:
+	1400 cells
+	10 mutations
+	learning errors
+
+	Priors:
+	params.:	Beta(0.75,0.75)
+	CRP a_0:	Gamma(37.42,1)
+	FP:		trunc norm(0.01,0.01)
+	FN:		trunc norm(0.2,0.1)
+
+Move probabilitites:
+	Split/merge:	0.33
+		split/merge ratio:	[0.75, 0.25]
+		intermediate Gibbs:	3
+	CRP a_0 update:	0.25
+	Errors update:	0.25
+
+Run MCMC with (1 chains for 5000 steps):
+
+Clustering time:	0:36:51.589012	(0.44 secs. per MCMC step)	Lugsail PSRF:		1.00825
+
+Chain mean - posterior clusters	(#171):
+	171 clusters
+
+	A: 26 items
+	B: 2 items
+	C: 60 items
+	D: 2 items
+	E: 2 items
+	F: 2 items
+	G: 1 items
+	H: 3 items
+	I: 2 items
+	J: 2 items
+	K: 1 items
+	L: 927 items
+	M: 1 items
+	N: 1 items
+	O: 1 items
+	P: 12 items
+	Q: 16 items
+	R: 15 items
+	S: 2 items
+	T: 76 items
+	U: 2 items
+	V: 1 items
+	W: 1 items
+	X: 1 items
+	Y: 1 items
+	Z: 1 items
+	AA: 1 items
+	BB: 1 items
+	CC: 1 items
+	DD: 1 items
+	EE: 1 items
+	FF: 1 items
+	GG: 1 items
+	HH: 84 items
+	II: 8 items
+	JJ: 1 items
+	KK: 1 items
+	LL: 1 items
+	MM: 1 items
+	NN: 1 items
+	OO: 2 items
+	PP: 3 items
+	QQ: 1 items
+	RR: 1 items
+	SS: 1 items
+	TT: 1 items
+	UU: 1 items
+	VV: 1 items
+	WW: 1 items
+	XX: 1 items
+	YY: 1 items
+	ZZ: 1 items
+	AAA: 1 items
+	BBB: 1 items
+	CCC: 1 items
+	DDD: 1 items
+	EEE: 1 items
+	FFF: 1 items
+	GGG: 1 items
+	HHH: 1 items
+	III: 1 items
+	JJJ: 1 items
+	KKK: 1 items
+	LLL: 1 items
+	MMM: 1 items
+	NNN: 1 items
+	OOO: 1 items
+	PPP: 1 items
+	QQQ: 1 items
+	RRR: 1 items
+	SSS: 1 items
+	TTT: 1 items
+	UUU: 1 items
+	VVV: 1 items
+	WWW: 1 items
+	XXX: 1 items
+	YYY: 1 items
+	ZZZ: 1 items
+	AAAA: 1 items
+	BBBB: 1 items
+	CCCC: 1 items
+	DDDD: 1 items
+	EEEE: 2 items
+	FFFF: 1 items
+	GGGG: 1 items
+	HHHH: 1 items
+	IIII: 1 items
+	JJJJ: 1 items
+	KKKK: 1 items
+	LLLL: 1 items
+	MMMM: 1 items
+	NNNN: 1 items
+	OOOO: 1 items
+	PPPP: 1 items
+	QQQQ: 1 items
+	RRRR: 1 items
+	SSSS: 1 items
+	TTTT: 1 items
+	UUUU: 1 items
+	VVVV: 1 items
+	WWWW: 1 items
+	XXXX: 1 items
+	YYYY: 1 items
+	ZZZZ: 1 items
+	AAAAA: 1 items
+	BBBBB: 1 items
+	CCCCC: 1 items
+	DDDDD: 1 items
+	EEEEE: 1 items
+	FFFFF: 1 items
+	GGGGG: 1 items
+	HHHHH: 1 items
+	IIIII: 1 items
+	JJJJJ: 1 items
+	KKKKK: 1 items
+	LLLLL: 1 items
+	MMMMM: 1 items
+	NNNNN: 1 items
+	OOOOO: 1 items
+	PPPPP: 1 items
+	QQQQQ: 1 items
+	RRRRR: 1 items
+	SSSSS: 1 items
+	TTTTT: 1 items
+	UUUUU: 1 items
+	VVVVV: 1 items
+	WWWWW: 1 items
+	XXXXX: 1 items
+	YYYYY: 1 items
+	ZZZZZ: 1 items
+	AAAAAA: 1 items
+	BBBBBB: 1 items
+	CCCCCC: 1 items
+	DDDDDD: 1 items
+	EEEEEE: 1 items
+	FFFFFF: 1 items
+	GGGGGG: 1 items
+	HHHHHH: 1 items
+	IIIIII: 1 items
+	JJJJJJ: 1 items
+	KKKKKK: 1 items
+	LLLLLL: 1 items
+	MMMMMM: 1 items
+	NNNNNN: 1 items
+	OOOOOO: 1 items
+	PPPPPP: 1 items
+	QQQQQQ: 1 items
+	RRRRRR: 1 items
+	SSSSSS: 1 items
+	TTTTTT: 1 items
+	UUUUUU: 1 items
+	VVVVVV: 1 items
+	WWWWWW: 1 items
+	XXXXXX: 1 items
+	YYYYYY: 1 items
+	ZZZZZZ: 1 items
+	AAAAAAA: 1 items
+	BBBBBBB: 1 items
+	CCCCCCC: 1 items
+	DDDDDDD: 1 items
+	EEEEEEE: 1 items
+	FFFFFFF: 1 items
+	GGGGGGG: 1 items
+	HHHHHHH: 1 items
+	IIIIIII: 1 items
+	JJJJJJJ: 1 items
+	KKKKKKK: 1 items
+	LLLLLLL: 1 items
+	MMMMMMM: 1 items
+	NNNNNNN: 1 items
+	OOOOOOO: 1 items
+
+Inferred latent variables	--	chain mean - posterior
+	CRP a_0:	303.0 +- 38.8
+	FP (model|genotypes): 9.8E-04 +- 1.2E-03	|	3.6E-03
+	FN (model|genotypes): 0.177   +- 0.025	|	0.143
+
+Writing output to: ./output/exp2_8_D_4_bnpc
+
+Too many cells to plot genotypes/clusters

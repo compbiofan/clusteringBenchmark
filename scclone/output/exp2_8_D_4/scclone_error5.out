@@ -1,0 +1,215 @@
+
+number of available threads: 28
+number of requested threads: 28
+
+Total 1401 cells and 11 mutations were loaded from file ./input/exp2_8_D_4.tsv
+--------------- screening report -----------------
+#clusters: 1
+LL: -4284.66
+Score: 0
+alpha: 0.01
+beta: 0.1
+--------------- screening report -----------------
+--------------- screening report -----------------
+#clusters: 2
+LL: -3806.33
+Score: 0.832498
+alpha: 0.01
+beta: 0.1
+--------------- screening report -----------------
+--------------- screening report -----------------
+#clusters: 3
+LL: -3538.39
+Score: 0.640179
+alpha: 0.01
+beta: 0.1
+--------------- screening report -----------------
+--------------- screening report -----------------
+#clusters: 4
+LL: -3355.58
+Score: 0.714454
+alpha: 0.01
+beta: 0.1
+--------------- screening report -----------------
+--------------- screening report -----------------
+#clusters: 5
+LL: -3213.19
+Score: 0.694831
+alpha: 0.01
+beta: 0.1
+--------------- screening report -----------------
+--------------- screening report -----------------
+#clusters: 6
+LL: -3167.3
+Score: 0.727927
+alpha: 0.01
+beta: 0.1
+--------------- screening report -----------------
+--------------- screening report -----------------
+#clusters: 7
+LL: -3148.12
+Score: 0.79862
+alpha: 0.01
+beta: 0.1
+--------------- screening report -----------------
+--------------- screening report -----------------
+#clusters: 8
+LL: -3125.85
+Score: 0.790742
+alpha: 0.01
+beta: 0.1
+--------------- screening report -----------------
+--------------- screening report -----------------
+#clusters: 9
+LL: -3106.1
+Score: 0.787507
+alpha: 0.01
+beta: 0.1
+--------------- screening report -----------------
+--------------- screening report -----------------
+#clusters: 10
+LL: -3088.9
+Score: 0.790145
+alpha: 0.01
+beta: 0.1
+--------------- screening report -----------------
+--------------- screening report -----------------
+#clusters: 11
+LL: -3077.34
+Score: 0.781661
+alpha: 0.01
+beta: 0.1
+--------------- screening report -----------------
+--------------- screening report -----------------
+#clusters: 12
+LL: -3067.43
+Score: 0.80555
+alpha: 0.01
+beta: 0.1
+--------------- screening report -----------------
+--------------- screening report -----------------
+#clusters: 13
+LL: -3059.53
+Score: 0.821367
+alpha: 0.01
+beta: 0.1
+--------------- screening report -----------------
+--------------- screening report -----------------
+#clusters: 14
+LL: -3051.58
+Score: 0.833938
+alpha: 0.01
+beta: 0.1
+--------------- screening report -----------------
+--------------- screening report -----------------
+#clusters: 15
+LL: -3045.27
+Score: 0.825829
+alpha: 0.01
+beta: 0.1
+--------------- screening report -----------------
+--------------- screening report -----------------
+#clusters: 16
+LL: -3039.9
+Score: 0.836435
+alpha: 0.01
+beta: 0.1
+--------------- screening report -----------------
+--------------- screening report -----------------
+#clusters: 17
+LL: -3035.02
+Score: 0.825231
+alpha: 0.01
+beta: 0.1
+--------------- screening report -----------------
+--------------- screening report -----------------
+#clusters: 18
+LL: -3031.25
+Score: 0.836511
+alpha: 0.01
+beta: 0.1
+--------------- screening report -----------------
+--------------- screening report -----------------
+#clusters: 19
+LL: -3029.72
+Score: 0.832926
+alpha: 0.01
+beta: 0.1
+--------------- screening report -----------------
+--------------- screening report -----------------
+#clusters: 20
+LL: -3024.95
+Score: 0.81769
+alpha: 0.01
+beta: 0.1
+--------------- screening report -----------------
+--------------- screening report -----------------
+#clusters: 21
+LL: -3022.37
+Score: 0.81582
+alpha: 0.01
+beta: 0.1
+--------------- screening report -----------------
+--------------- screening report -----------------
+#clusters: 22
+LL: -3020.84
+Score: 0.811847
+alpha: 0.01
+beta: 0.1
+--------------- screening report -----------------
+--------------- screening report -----------------
+#clusters: 23
+LL: -3019.02
+Score: 0.81319
+alpha: 0.01
+beta: 0.1
+--------------- screening report -----------------
+--------------- screening report -----------------
+#clusters: 24
+LL: -3018.39
+Score: 0.824836
+alpha: 0.01
+beta: 0.1
+--------------- screening report -----------------
+--------------- screening report -----------------
+#clusters: 25
+LL: -3018.39
+Score: 0.824836
+alpha: 0.01
+beta: 0.1
+--------------- screening report -----------------
+--------------- screening report -----------------
+#clusters: 26
+LL: -3018.39
+Score: 0.826148
+alpha: 0.01
+beta: 0.1
+--------------- screening report -----------------
+--------------- screening report -----------------
+#clusters: 27
+LL: -3018.39
+Score: 0.826148
+alpha: 0.01
+beta: 0.1
+--------------- screening report -----------------
+--------------- screening report -----------------
+#clusters: 28
+LL: -3017.61
+Score: 0.833592
+alpha: 0.01
+beta: 0.1
+--------------- screening report -----------------
+--------------- best solution -----------------
+#clusters: 18
+LL: -3031.25
+Score: 0.836511
+alpha: 0.01
+beta: 0.1
+-----------------------------------------------
+
+Elapsed time: 2 minutes and 13 seconds!
+
+
+real	2m13.674s
+user	4m22.271s
+sys	0m0.264s

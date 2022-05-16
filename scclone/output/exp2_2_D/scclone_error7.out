@@ -1,0 +1,9 @@
+
+number of available threads: 24
+number of requested threads: 24
+
+unsupported genotype value 2 at line 4 in file ./input/exp2_2_DMatrix.tsv
+
+real	0m0.123s
+user	0m0.006s
+sys	0m0.008s

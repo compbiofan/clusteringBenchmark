@@ -1,0 +1,26 @@
+# Create folders for results of each datasets
+for i in ./input/*.tsv; do 
+	fileName=$(echo $i| cut -d'/' -f 3)
+        #echo $fileName
+        subfname=$(echo $fileName| cut -d'.' -f 1)
+        #echo $subfname
+        mkdir output/$subfname;
+done
+
+# This command will create all the files to run scclone in parallel
+for i in ./input/*.tsv; do
+	fileName=$(echo $i| cut -d'/' -f 3)
+        #echo $fileName
+        subfname=$(echo $fileName| cut -d'.' -f 1)
+	echo "time ../../scclone-1.0/bin/scclone -i $i -a 0.01 -b 0.1 -o ./output/$subfname/$subfname" >> run_scclone.sh;
+	echo "#" >> run_scclone.sh;
+done
+
+# Run the python command to generate the slurm files
+python gen_jobs.py -input run_scclone.sh -n 2 -mem_per_cpu 4GB -p fan_q
+
+#Launch jobs
+for i in `seq 0 6`; do sbatch run_scclone.$i.slurm; done
+
+# Run the python script to get the consensus matrix
+python scclone_getGmatrix.py -ca ./output/exp2_2_D_10/exp2_2_D_10.cell_assignment -cg ./output/exp2_2_D_10/exp2_2_D_10.clone_genotypes -op ./consensus_genotype/exp2_2_D_10 -input ./input/exp2_2_D_10.tsv
