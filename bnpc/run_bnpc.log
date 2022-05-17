@@ -19,14 +19,23 @@ done
 conda activate pythonenv
 
 # Run the python command to generate the slurm files
-python gen_jobs.py -input run_bnpc.sh -n 2 -mem_per_cpu 4GB -p fan_q
+python gen_jobs.py -input run_bnpc.sh -n 2 -mem_per_cpu 4GB -p fan_q -algo bnpc
 
 #Launch jobs
 for i in `seq 0 6`; do sbatch run_bnpc.$i.slurm; done
 
 # Get the consensus matrix
-python bnpc_getGmatrix.py -cc ./output/exp2_2_D_10_bnpc/assignment.txt -gp ./output/exp2_2_D_10_bnpc/genotypes_posterior_mean.tsv -input ../scclone/input/exp2_2_D_10.tsv -op consensus_genotype/exp2_2_D_10_CG.tsv
-
-# Get the evaluation matrix
-python evaluateMetrics.py -cg ./consensus_genotype/exp2_2_D_10_CG.tsv -gtG ./ground_truth/exp2_2_GT_10.tsv
+for dir in ./output/*/; do
+        #echo $dir
+        fileName=$(echo $dir| cut -d'/' -f 3)
+        #echo $fileName
+        gt_subfn1=$(echo $fileName| cut -d'_' -f 1)
+        gt_subfn2=$(echo $fileName| cut -d'_' -f 2)
+        gt_subfn3=$(echo $fileName| cut -d'_' -f 4)
+	sc_in="${gt_subfn1}_${gt_subfn2}_D_${gt_subfn3}.tsv"
+        gt="${gt_subfn1}_${gt_subfn2}_GT_${gt_subfn3}.tsv"
+	#echo $sc_in
+	python bnpc_getGmatrix.py -cc $dir/assignment.txt -gp $dir/genotypes_posterior_mean.tsv -input ../scclone/input/$sc_in -op consensus_genotype/$fileName.tsv
+	python ../evaluateMetrics.py -cg ./consensus_genotype/$fileName.tsv -gtG ./ground_truth/$gt >> ./output/$fileName/eval_metrics.txt
+done
 
