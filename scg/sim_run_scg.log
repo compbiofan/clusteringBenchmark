@@ -1,0 +1,57 @@
+mkdir sim_output
+
+# Create folders for results of each datasets
+for i in ./sim_input/*; do
+        simDataType=$(echo $i| cut -d'/' -f 3)
+        #echo $simDataType
+        mkdir sim_output/$simDataType
+        for k in `seq 1 5`; do
+                mkdir sim_output/$simDataType/rep$k;
+        done
+done
+
+conda activate pythonenv
+
+# Process the sim input files for bnpc
+for i in ./sim_input/*; do
+        simDataType=$(echo $i| cut -d'/' -f 3)
+        for k in `seq 1 5`; do
+                for j in ./sim_input/$simDataType/rep$k/*D.csv; do
+                        python processSimInput.py -input $j -output ./sim_input/$simDataType/rep$k
+                done
+        done
+done
+
+conda deactivate
+conda activate scg
+
+# This command will create all the files to run SCG in parallel
+for i in ./sim_input/*; do
+	simDataType=$(echo $i| cut -d'/' -f 3)
+	for k in `seq 1 5`; do
+		for j in ./sim_input/$simDataType/rep$k/*D.tsv.gz; do
+			echo "python save_multipleSCGresults.py -opDir ./sim_output/$simDataType/rep$k -input $j -scg_config ../../SCG_Roth/scg/examples/config.yaml -config_path ./sim_input/$simDataType/rep$k -sim true -niters 10000" >> sim_run_scg.sh;
+        		echo "#" >> sim_run_scg.sh;
+		done
+	done
+done
+
+# Run the python command to generate the slurm files
+python ../gen_jobs.py -input sim_run_scg.sh -n 2 -mem_per_cpu 4GB -p fan_q -algo scg -sim true
+
+#Launch jobs
+for i in `seq 0 6`; do sbatch sim_run_scg.$i.slurm; done
+
+#Get the consensus genotype matrix
+for i in ./sim_output/*; do
+        simDataType=$(echo $i| cut -d'/' -f 3)
+	#echo $simDataType
+	for k in `seq 1 5`; do
+                fileName=$simDataType'_'rep$k
+        	#echo $fileName
+        	#python scg_getGmatrix.py -cp ./sim_output/$simDataType/rep$k/cluster_posteriors.tsv.gz -gp ./sim_output/$simDataType/rep$k/genotype_posteriors.tsv.gz -output ./sim_consensus_genotype/$fileName.tsv
+        	python ../evaluateMetrics.py -cg ./sim_consensus_genotype/$fileName.tsv -gtG ./sim_input/$simDataType/rep$k/'input_'$fileName'.G.csv' -sim true > ./sim_output/$simDataType/rep$k/eval_metrics.txt
+        done
+done
+
+

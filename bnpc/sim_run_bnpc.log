@@ -1,0 +1,51 @@
+mkdir sim_output
+
+# Create folders for results of each datasets
+for i in ./sim_input/*; do
+        simDataType=$(echo $i| cut -d'/' -f 3)
+        #echo $simDataType
+        mkdir sim_output/$simDataType
+	for k in `seq 1 5`; do
+        	mkdir sim_output/$simDataType/rep$k;
+	done
+done
+
+conda activate pythonenv
+
+# Process the sim input files for bnpc
+for i in ./sim_input/*; do
+	simDataType=$(echo $i| cut -d'/' -f 3)
+        for k in `seq 1 5`; do
+                for j in ./sim_input/$simDataType/rep$k/*D.csv; do
+			python processSimInput.py -input $j -output ./sim_input/$simDataType/rep$k
+		done
+	done
+done
+
+# This command will create all the files to run bnpc in parallel
+for i in ./sim_input/*; do
+        simDataType=$(echo $i| cut -d'/' -f 3)
+	for k in `seq 1 5`; do
+		for j in ./sim_input/$simDataType/rep$k/*D.tsv; do
+			#echo $j
+			echo "time python ../../BnpC/run_BnpC.py $j -pp 0.75 0.75 -o ./sim_output/$simDataType/rep$k" >> sim_run_bnpc.sh;
+			echo "#" >> sim_run_bnpc.sh
+		done
+	done
+done
+
+# Run the python command to generate the slurm files
+python ../gen_jobs.py -input sim_run_bnpc.sh -n 2 -mem_per_cpu 4GB -p fan_q -algo bnpc -sim true
+
+#Launch jobs
+for i in `seq 0 6`; do sbatch sim_run_bnpc.$i.slurm; done
+
+# Get the consensus matrix
+for i in ./sim_output/*; do
+        simDataType=$(echo $i| cut -d'/' -f 3)
+	for k in `seq 1 5`; do
+		fileName=$simDataType'_'rep$k
+        	python bnpc_getGmatrix.py -cc ./sim_output/$simDataType/rep$k/assignment.txt -gp ./sim_output/$simDataType/rep$k/genotypes_posterior_mean.tsv -sim true -op sim_consensus_genotype/$fileName.tsv
+        	python ../evaluateMetrics.py -cg ./sim_consensus_genotype/$fileName.tsv -gtG ./sim_input/$simDataType/rep$k/'input_'$fileName'.G.csv' -sim true > ./sim_output/$simDataType/rep$k/eval_metrics.txt
+        done
+done

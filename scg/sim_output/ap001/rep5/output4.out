@@ -1,0 +1,94 @@
+Loading ./sim_input/ap001/rep5/input_ap001_rep5.D.tsv.gz.
+Number of cells: 500
+Number of data types: 1
+Number of snv events: 200
+No samples file supplied. All cells assumed to come from same sample.
+0 -12209.0 inf
+1 4678.5 3.6095970930853905
+2 12994.75 0.6399699878797207
+3 16910.0 0.23153459491425193
+4 19203.5 0.11943135365948916
+5 19279.0 0.003916178225011671
+6 19278.5 -2.593562777187022e-05
+Converged
+Loading ./sim_input/ap001/rep5/input_ap001_rep5.D.tsv.gz.
+Number of cells: 500
+Number of data types: 1
+Number of snv events: 200
+No samples file supplied. All cells assumed to come from same sample.
+0 -12034.0 inf
+1 3082.0 4.90460739779364
+2 10444.0 0.7049023362696285
+3 12943.5 0.19310851006296598
+4 13116.5 0.013189494148591469
+5 13131.5 0.0011422914366218634
+6 13207.0 0.005716665404709624
+7 13222.5 0.0011722442805823408
+8 13222.0 -3.7815761609438814e-05
+Converged
+Loading ./sim_input/ap001/rep5/input_ap001_rep5.D.tsv.gz.
+Number of cells: 500
+Number of data types: 1
+Number of snv events: 200
+No samples file supplied. All cells assumed to come from same sample.
+0 -11908.5 inf
+1 5759.5 3.06762739821165
+2 17040.75 0.6620160497630679
+3 19501.5 0.1261826013383586
+4 19676.5 0.00889385815566793
+5 19784.5 0.0054588187722712225
+6 19908.5 0.006228495366300826
+7 19990.5 0.004101948425502114
+8 19991.0 2.501125506477915e-05
+Converged
+Loading ./sim_input/ap001/rep5/input_ap001_rep5.D.tsv.gz.
+Number of cells: 500
+Number of data types: 1
+Number of snv events: 200
+No samples file supplied. All cells assumed to come from same sample.
+0 -12608.0 inf
+1 3790.0 4.326649076517151
+2 15255.75 0.7515690805106271
+3 18996.5 0.1969178532887637
+4 19232.5 0.012270895619394255
+5 19314.5 0.00424551502756996
+6 19314.5 0.0
+Converged
+Loading ./sim_input/ap001/rep5/input_ap001_rep5.D.tsv.gz.
+Number of cells: 500
+Number of data types: 1
+Number of snv events: 200
+No samples file supplied. All cells assumed to come from same sample.
+0 -11908.5 inf
+1 5759.5 3.06762739821165
+2 17040.75 0.6620160497630679
+3 19501.5 0.1261826013383586
+4 19676.5 0.00889385815566793
+5 19784.5 0.0054588187722712225
+6 19908.5 0.006228495366300826
+7 19990.5 0.004101948425502114
+8 19991.0 2.501125506477915e-05
+Converged
+6
+(' Filename ', './sim_input/ap001/rep5/input_ap001_rep5.D.tsv.gz')
+['.', 'sim_input', 'ap001', 'rep5', 'input_ap001_rep5.D.tsv.gz']
+(' Config name ', 'ap001_rep5')
+(' Config name ', 'config_ap001_rep5.yaml')
+('Iteration ', 0)
+1679
+(' Dir name ', './sim_output/ap001/rep5/scg_clusterNo_125_iter_0')
+./sim_output/ap001/rep5/scg_clusterNo_125_iter_0
+('Iteration ', 1)
+7216
+(' Dir name ', './sim_output/ap001/rep5/scg_clusterNo_125_iter_1')
+./sim_output/ap001/rep5/scg_clusterNo_125_iter_1
+('Iteration ', 2)
+8421
+(' Dir name ', './sim_output/ap001/rep5/scg_clusterNo_125_iter_2')
+./sim_output/ap001/rep5/scg_clusterNo_125_iter_2
+('Iteration ', 3)
+6900
+(' Dir name ', './sim_output/ap001/rep5/scg_clusterNo_125_iter_3')
+./sim_output/ap001/rep5/scg_clusterNo_125_iter_3
+{7216: '13222.0', 6900: '19314.5', 8421: '19991.0', 1679: '19278.5'}
+('Max elbo ', 19991.0, ' for seed ', 8421)

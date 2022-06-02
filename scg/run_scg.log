@@ -1,5 +1,3 @@
-mkdir output
-
 # Create folders for results of each datasets
 for i in ./input/*.tsv.gz; do 
 	fileName=$(echo $i| cut -d'/' -f 3)
@@ -17,12 +15,12 @@ for i in ./input/*.tsv.gz; do
 	fileName=$(echo $i| cut -d'/' -f 3)
         #echo $fileName
         subfname=$(echo $fileName| cut -d'.' -f 1)
-	echo "python save_multipleSCGresults.py -opDir output/$subfname -input $i -scg_config ../../SCG_Roth/scg/examples/config.yaml -niters 10000" >> run_scg.sh;
+	echo "python save_multipleSCGresults.py -opDir output/$subfname -input $i -scg_config ../../SCG_Roth/scg/examples/config.yaml -config_path ./input -sim false -niters 10000" >> run_scg.sh;
 	echo "#" >> run_scg.sh;
 done
 
 # Run the python command to generate the slurm files
-python ../gen_jobs.py -input run_scg.sh -n 2 -mem_per_cpu 4GB -p fan_q -algo scg
+python ../gen_jobs.py -input run_scg.sh -n 2 -mem_per_cpu 4GB -p fan_q -algo scg -sim false
 
 #Launch jobs
 for i in `seq 0 6`; do sbatch run_scg.$i.slurm; done
@@ -40,7 +38,7 @@ for dir in ./output/*/; do
 	gt="${gt_subfn1}_${gt_subfn2}_GT_${gt_subfn3}.tsv"
 	#echo "${gt}"
 	python scg_getGmatrix.py -cp $dir/cluster_posteriors.tsv.gz -gp $dir/genotype_posteriors.tsv.gz -output ./consensus_genotype/$fileName.tsv
-	python ../evaluateMetrics.py -cg ./consensus_genotype/$fileName.tsv -gtG ./ground_truth/$gt >> ./output/$fileName/eval_metrics.txt
+	python ../evaluateMetrics.py -cg ./consensus_genotype/$fileName.tsv -gtG ./ground_truth/$gt > ./output/$fileName/eval_metrics.txt
 done
 
 # Evaluate the metrics

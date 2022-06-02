@@ -2,7 +2,7 @@ import argparse
 
 # Read each line after # in args.input and include them in the slurm file.
 # And include the header
-def create_job_file(fname,n,mpc,p,cluster_algo):
+def create_job_file(fname,n,mpc,p,cluster_algo,sim):
     with open(fname,'r') as f:
         lines = f.readlines()
     count = 0
@@ -12,9 +12,12 @@ def create_job_file(fname,n,mpc,p,cluster_algo):
         if "#" in line:
             continue
         line_items = line.split(" ")
-        #print(" Line items ",line_items)
+        print(" Line items ",line_items)
         for item in line_items:
-            if 'output' in item and cluster_algo == 'scclone':
+            if 'output' in item and cluster_algo == 'scclone' and sim == 'true':
+                opdir_list = (item.strip()).split('/')
+                opdir_name = opdir_list[0]+"/"+opdir_list[1]+"/"+opdir_list[2]+"/"+opdir_list[3]
+            elif 'output' in item and cluster_algo == 'scclone' and sim == 'false':
                 opdir_list = (item.strip()).split('/')
                 opdir_name = opdir_list[0]+"/"+opdir_list[1]+"/"+opdir_list[2]
             elif 'output' in item:
@@ -22,7 +25,7 @@ def create_job_file(fname,n,mpc,p,cluster_algo):
                 opdir_name = item.strip()
 
         #opdir_name = (line_items[8].strip()).replace(".","")
-        #print(opdir_name)
+        print(opdir_name)
         with open(op_fname+"."+str(count)+".slurm",'w') as f:
             f.write("#!/bin/bash\n")
             f.write("#SBATCH --job-name="+cluster_algo+str(count)+"\n")
@@ -42,6 +45,7 @@ parser.add_argument("-n","--n",dest="n", help="No of cpus")
 parser.add_argument("-mem_per_cpu", "--mem_per_cpu",dest ="mem_per_cpu", help="Memory per CPU")
 parser.add_argument("-p", "--p",dest ="p", help="partition")
 parser.add_argument("-algo", "--algo",dest ="algo", help="Which cluster algo you are running")
+parser.add_argument("-sim", "--sim",dest ="sim", help="Simulated data")
 args = parser.parse_args()
 
-create_job_file(args.input, args.n, args.mem_per_cpu, args.p, args.algo)
+create_job_file(args.input, args.n, args.mem_per_cpu, args.p, args.algo, args.sim)

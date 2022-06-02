@@ -1,5 +1,3 @@
-mkdir output
-
 # Create folders for results of each datasets
 for i in ./input/*.tsv; do 
 	fileName=$(echo $i| cut -d'/' -f 3)
@@ -21,7 +19,7 @@ done
 conda activate pythonenv
 
 # Run the python command to generate the slurm files
-python gen_jobs.py -input run_bnpc.sh -n 2 -mem_per_cpu 4GB -p fan_q -algo bnpc
+python ../gen_jobs.py -input run_bnpc.sh -n 2 -mem_per_cpu 4GB -p fan_q -algo bnpc -sim false
 
 #Launch jobs
 for i in `seq 0 6`; do sbatch run_bnpc.$i.slurm; done
@@ -38,6 +36,6 @@ for dir in ./output/*/; do
         gt="${gt_subfn1}_${gt_subfn2}_GT_${gt_subfn3}.tsv"
 	#echo $sc_in
 	python bnpc_getGmatrix.py -cc $dir/assignment.txt -gp $dir/genotypes_posterior_mean.tsv -input ../scclone/input/$sc_in -op consensus_genotype/$fileName.tsv
-	python ../evaluateMetrics.py -cg ./consensus_genotype/$fileName.tsv -gtG ./ground_truth/$gt >> ./output/$fileName/eval_metrics.txt
+	python ../evaluateMetrics.py -cg ./consensus_genotype/$fileName.tsv -gtG ./ground_truth/$gt > ./output/$fileName/eval_metrics.txt
 done
 

@@ -1,0 +1,82 @@
+Loading ./sim_input/ap001/rep4/input_ap001_rep4.D.tsv.gz.
+Number of cells: 500
+Number of data types: 1
+Number of snv events: 200
+No samples file supplied. All cells assumed to come from same sample.
+0 -5970.5 inf
+1 6109.5 1.9772485473442998
+2 17252.75 0.6458825404645636
+3 24884.25 0.30667992806695
+4 24919.5 0.0014145548666706796
+5 24920.0 2.0064205457463884e-05
+Converged
+Loading ./sim_input/ap001/rep4/input_ap001_rep4.D.tsv.gz.
+Number of cells: 500
+Number of data types: 1
+Number of snv events: 200
+No samples file supplied. All cells assumed to come from same sample.
+0 -5103.0 inf
+1 10459.5 1.487881829915388
+2 21108.5 0.5044887130776702
+3 24837.0 0.15011877440914764
+4 24836.0 -4.0264132710581415e-05
+Converged
+Loading ./sim_input/ap001/rep4/input_ap001_rep4.D.tsv.gz.
+Number of cells: 500
+Number of data types: 1
+Number of snv events: 200
+No samples file supplied. All cells assumed to come from same sample.
+0 -4231.0 inf
+1 12734.0 1.332260091094707
+2 22866.75 0.443121562968065
+3 24849.5 0.07979033783375923
+4 24930.5 0.0032490323098213034
+5 24930.0 -2.0056157240272763e-05
+Converged
+Loading ./sim_input/ap001/rep4/input_ap001_rep4.D.tsv.gz.
+Number of cells: 500
+Number of data types: 1
+Number of snv events: 200
+No samples file supplied. All cells assumed to come from same sample.
+0 -5946.0 inf
+1 11034.0 1.5388798259923873
+2 21228.25 0.480220932012766
+3 24831.5 0.14510802810945775
+4 24837.0 0.00022144381366509644
+5 24836.5 -2.0131661063354337e-05
+Converged
+Loading ./sim_input/ap001/rep4/input_ap001_rep4.D.tsv.gz.
+Number of cells: 500
+Number of data types: 1
+Number of snv events: 200
+No samples file supplied. All cells assumed to come from same sample.
+0 -4231.0 inf
+1 12734.0 1.332260091094707
+2 22866.75 0.443121562968065
+3 24849.5 0.07979033783375923
+4 24930.5 0.0032490323098213034
+5 24930.0 -2.0056157240272763e-05
+Converged
+6
+(' Filename ', './sim_input/ap001/rep4/input_ap001_rep4.D.tsv.gz')
+['.', 'sim_input', 'ap001', 'rep4', 'input_ap001_rep4.D.tsv.gz']
+(' Config name ', 'ap001_rep4')
+(' Config name ', 'config_ap001_rep4.yaml')
+('Iteration ', 0)
+9998
+(' Dir name ', './sim_output/ap001/rep4/scg_clusterNo_125_iter_0')
+./sim_output/ap001/rep4/scg_clusterNo_125_iter_0
+('Iteration ', 1)
+4070
+(' Dir name ', './sim_output/ap001/rep4/scg_clusterNo_125_iter_1')
+./sim_output/ap001/rep4/scg_clusterNo_125_iter_1
+('Iteration ', 2)
+1406
+(' Dir name ', './sim_output/ap001/rep4/scg_clusterNo_125_iter_2')
+./sim_output/ap001/rep4/scg_clusterNo_125_iter_2
+('Iteration ', 3)
+8463
+(' Dir name ', './sim_output/ap001/rep4/scg_clusterNo_125_iter_3')
+./sim_output/ap001/rep4/scg_clusterNo_125_iter_3
+{1406: '24930.0', 4070: '24836.0', 9998: '24920.0', 8463: '24836.5'}
+('Max elbo ', 24930.0, ' for seed ', 1406)

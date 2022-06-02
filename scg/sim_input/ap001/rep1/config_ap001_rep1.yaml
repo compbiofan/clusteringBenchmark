@@ -1,0 +1,19 @@
+data:
+  snv:
+    file: ./sim_input/ap001/rep1/input_ap001_rep1.D.tsv.gz
+    gamma_prior:
+    - - 9.99
+      - 0.01
+      - 1.0e-15
+    - - 2.5
+      - 7.5
+      - 1.0e-15
+    - - 1.0e-15
+      - 1.0e-15
+      - 1
+    state_prior:
+    - 1
+    - 1
+    - 1
+kappa_prior: 1
+num_clusters: 125

@@ -31,16 +31,26 @@ def get_cell_mutation(mutations,input_D):
     print(cluster_mutation_df)
     return cluster_mutation_df.T
 
+def get_sim_cell_mutation(mutations):
+    cluster_mutation_df = pd.read_csv(mutations, sep='\t', index_col = 0)
+    print(cluster_mutation_df)
+    return cluster_mutation_df.T
+
 parser = argparse.ArgumentParser()
 parser.add_argument("-cc", "--cc",dest ="cc", help="Assignment.txt file indicating clusters of cells")
 parser.add_argument("-gp", "--gp",dest ="gp", help="Mutations for each cluster")
 parser.add_argument("-input", "--input",dest="input", help="Sample input to bnpc")
+parser.add_argument("-sim", "--sim",dest="sim", help="Simulated data")
 parser.add_argument("-op","--op",dest="op", help="Output file to save")
 args = parser.parse_args()
 
 cell_cluster = get_cell_cluster(args.cc)
 #print(cell_cluster.values())
-cell_mutation_df = get_cell_mutation(args.gp,args.input)
-cell_mutation_df.to_csv(args.op,sep='\t')
+if args.sim == "true":
+    cell_mutation_df = get_sim_cell_mutation(args.gp)
+    cell_mutation_df.to_csv(args.op,sep='\t')
+else:
+    cell_mutation_df = get_cell_mutation(args.gp,args.input)
+    cell_mutation_df.to_csv(args.op,sep='\t')
 
 

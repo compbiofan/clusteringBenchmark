@@ -1,0 +1,47 @@
+mkdir sim_output
+
+# Create folders for results of each datasets
+for i in ./sim_input/*; do
+        simDataType=$(echo $i| cut -d'/' -f 3)
+        #echo $simDataType
+        mkdir sim_output/$simDataType
+        for k in `seq 1 5`; do
+                mkdir sim_output/$simDataType/rep$k;
+        done
+done
+
+# SCClone doesn't require input processing
+
+# This command will create all the files to run scclone in parallel
+for i in ./sim_input/*; do
+        simDataType=$(echo $i| cut -d'/' -f 3)
+        for k in `seq 1 5`; do
+                for j in ./sim_input/$simDataType/rep$k/*D.csv; do
+                        #echo $j
+                        echo "time ../../scclone-1.0/bin/scclone -i $j -a 0.01 -b 0.1 -o ./sim_output/$simDataType/rep$k/rep$k" >> sim_run_scclone.sh;
+                        echo "#" >> sim_run_scclone.sh
+                done
+        done
+done
+
+# Run the python command to generate the slurm files
+python ../gen_jobs.py -input sim_run_scclone.sh -n 2 -mem_per_cpu 4GB -p fan_q -algo scclone -sim true
+
+#Launch jobs
+for i in `seq 0 6`; do sbatch sim_run_scclone.$i.slurm; done
+
+conda activate pythonenv
+
+for i in ./sim_output/*; do
+        simDataType=$(echo $i| cut -d'/' -f 3)
+	for k in `seq 1 5`; do	
+        	fileName=$simDataType'_'rep$k
+        	#echo $fileName
+        	#gt_subfn1=$(echo $fileName| cut -d'_' -f 1)
+        	#gt_subfn2=$(echo $fileName| cut -d'_' -f 2)
+        	#gt_subfn3=$(echo $fileName| cut -d'_' -f 4)
+        	#gt="${gt_subfn1}_${gt_subfn2}_GT_${gt_subfn3}.tsv"
+        	#python scclone_getGmatrix.py -ca ./sim_output/$simDataType/rep$k/rep$k.cell_assignment -cg ./sim_output/$simDataType/rep$k/rep$k.clone_genotypes -sim true -op ./sim_consensus_genotype/$fileName.tsv
+        	python ../evaluateMetrics.py -cg ./sim_consensus_genotype/$fileName.tsv -gtG ./sim_input/$simDataType/rep$k/'input_'$fileName'.G.csv' -sim true > ./sim_output/$simDataType/rep$k/eval_metrics.txt
+        done
+done

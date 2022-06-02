@@ -60,7 +60,7 @@ def get_key(elbo,seed_lb_dict):
          if elbo == float(value):
              return key
 
-def find_best_run(config_params, fileName, cluster, nIters, opDir, seed_lb_dict,config_file_name):
+def find_best_run(config_params, fileName, cluster, nIters, opDir, seed_lb_dict,config_file_name,config_path):
     best_seed = 0
     elbo = float(list(seed_lb_dict.values())[0])
     for key,value in seed_lb_dict.items():
@@ -76,24 +76,38 @@ def find_best_run(config_params, fileName, cluster, nIters, opDir, seed_lb_dict,
         if not os.path.isdir(item):
             continue
         rmtree(item)
-    scg_cmd = 'time scg run_singlet_model --config_file ../../SCG_Roth/scg/examples/config_files/'+config_file_name+' --seed '+str(best_seed)+' --lower_bound_file '+opDir+'/'+'lower_bound.txt --max_num_iters '+nIters+' --out_dir '+opDir
+    scg_cmd = 'time scg run_singlet_model --config_file '+config_path+'/'+config_file_name+' --seed '+str(best_seed)+' --lower_bound_file '+opDir+'/'+'lower_bound.txt --max_num_iters '+nIters+' --out_dir '+opDir
     subprocess.call(scg_cmd, shell=True)
-        
-def save_multipleSCGresults(config_params, fileName, cluster, nIters, opDir):
+
+def get_config_name(fileName,sim):
+    if sim == "false":
+        config_name = (((fileName.split('/'))[2]).split('.'))[0]
+        config_file_name = 'config_'+config_name+'.yaml'
+        print(" Config name ",config_file_name)
+    else:
+        filename_list = fileName.split('/')
+        #((fileName.split('/'))[2]).split('.')
+        #print(filename_list)
+        config_name_1 = filename_list[2]
+        config_name_2 = filename_list[3]
+        print(" Config name ",config_name_1+"_"+config_name_2)
+        config_file_name = 'config_'+config_name_1+"_"+config_name_2+'.yaml'
+        print(" Config name ",config_file_name)
+    return config_file_name
+
+def save_multipleSCGresults(config_params, fileName, cluster, nIters, opDir, config_path, sim):
     #for i in clusterNo_list:
     cluster_update = {'num_clusters': int(cluster)}
     #ufileName = {'data': {'snv': {'file': fileName, 'gamma_prior':[[98, 1, 1], [25, 50, 25], [1, 1, 98]], 'state_prior': [1, 1, 1]}}}
     ufileName = {'data': {'snv': {'file': fileName, 'gamma_prior':[[9.99, 0.01, 1.0e-15], [2.5, 7.5, 1.0e-15], [1.0e-15, 1.0e-15, 1]], 'state_prior': [1, 1, 1]}}}
     #gamma_prior = {'data': {'snv': {'gamma_prior':[[98, 1, 1], [25, 50, 25], [1, 1, 98]]}}}
     #state_prior = {'data': {'snv': {'state_prior': [1, 1, 1]}}}
-    config_name = (((fileName.split('/'))[2]).split('.'))[0]
-    config_file_name = 'config_'+config_name+'.yaml'
-    print(" Config name ",config_file_name)
+    config_file_name = get_config_name(fileName,sim)
     config_params.update(cluster_update)
     config_params.update(ufileName)
     #print(config_params)
     # Update the config file to have the values
-    with open('../../SCG_Roth/scg/examples/config_files/'+config_file_name, 'w') as fp:
+    with open(config_path+'/'+config_file_name, 'w') as fp:
         documents = yaml.dump(config_params, fp)
     
     seed_lb_dict = {}
@@ -108,19 +122,21 @@ def save_multipleSCGresults(config_params, fileName, cluster, nIters, opDir):
         #os.chdir(opDir)
         print(" Dir name ",opDir+'/'+dir_name)
         subprocess.call('mkdir '+opDir+'/'+dir_name, shell=True)
-        scg_cmd = 'time scg run_singlet_model --config_file ../../SCG_Roth/scg/examples/config_files/'+config_file_name+' --seed '+str(seed_value)+' --lower_bound_file '+opDir+'/'+dir_name+'/lower_bound_file'+str(seed_value)+'.txt --max_num_iters '+nIters+' --out_dir '+opDir+'/'+dir_name
+        scg_cmd = 'time scg run_singlet_model --config_file '+config_path+'/'+config_file_name+' --seed '+str(seed_value)+' --lower_bound_file '+opDir+'/'+dir_name+'/lower_bound_file'+str(seed_value)+'.txt --max_num_iters '+nIters+' --out_dir '+opDir+'/'+dir_name
         subprocess.call(scg_cmd, shell=True)
         #os.chdir(wd)
         seed_lb_dict = save_seed_lb(opDir, dir_name, seed_value, seed_lb_dict)
     print(seed_lb_dict)
-    find_best_run(config_params, fileName, cluster, nIters, opDir, seed_lb_dict, config_file_name)
+    find_best_run(config_params, fileName, cluster, nIters, opDir, seed_lb_dict, config_file_name,config_path)
 
 parser = argparse.ArgumentParser()
 parser.add_argument("-input", "--input",dest ="input", help="Input matrix (similar to input to SCG)")
 #parser.add_argument("-cluster", "--cluster",nargs='+', dest = "cluster_list", help="List of cluster numbers")
 parser.add_argument("-scg_config","--scg_config",dest="scg_config", help="SCG Config yaml file")
 parser.add_argument("-niters", "--niters",dest ="niters", help="No of iterations")
+parser.add_argument("-config_path", "--config_path",dest="config_path", help="Path to save the config files")
 parser.add_argument("-opDir", "--opDir",dest ="opDir", help="Output Directory")
+parser.add_argument("-sim", "--sim",dest="sim", help="Simulated dataset or not")
 #args = parser.parse_args()
 args, unknown = parser.parse_known_args()
 
@@ -128,7 +144,7 @@ cluster = calculate_max_clusters(args.input)
 
 config_params = read_yaml(args.scg_config)
 #clusterNo_list = args.cluster_list
-save_multipleSCGresults(config_params, args.input, cluster, args.niters, args.opDir)
+save_multipleSCGresults(config_params, args.input, cluster, args.niters, args.opDir, args.config_path, args.sim)
  
 #config_params = read_yaml('../../SCG_Roth/scg/examples/config.yaml')
 #clusterNo_list = [5,6,7,8,9,10]

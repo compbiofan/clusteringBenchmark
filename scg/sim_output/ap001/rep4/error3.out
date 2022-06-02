@@ -1,0 +1,40 @@
+/gpfs/home/rk18g/.conda/envs/scg/lib/python2.7/site-packages/scg/run.py:89: YAMLLoadWarning: calling yaml.load() without Loader=... is deprecated, as the default Loader is unsafe. Please read https://msg.pyyaml.org/load for full details.
+  config = yaml.load(fh)
+/gpfs/home/rk18g/.conda/envs/scg/lib/python2.7/site-packages/scg/utils.py:43: RuntimeWarning: divide by zero encountered in log
+  return np.sign(x) * np.sign(y) * np.exp(np.log(np.abs(x)) + np.log(np.abs(y)))
+
+real	0m19.698s
+user	0m16.037s
+sys	0m1.550s
+/gpfs/home/rk18g/.conda/envs/scg/lib/python2.7/site-packages/scg/run.py:89: YAMLLoadWarning: calling yaml.load() without Loader=... is deprecated, as the default Loader is unsafe. Please read https://msg.pyyaml.org/load for full details.
+  config = yaml.load(fh)
+/gpfs/home/rk18g/.conda/envs/scg/lib/python2.7/site-packages/scg/utils.py:43: RuntimeWarning: divide by zero encountered in log
+  return np.sign(x) * np.sign(y) * np.exp(np.log(np.abs(x)) + np.log(np.abs(y)))
+
+real	0m14.732s
+user	0m13.465s
+sys	0m1.289s
+/gpfs/home/rk18g/.conda/envs/scg/lib/python2.7/site-packages/scg/run.py:89: YAMLLoadWarning: calling yaml.load() without Loader=... is deprecated, as the default Loader is unsafe. Please read https://msg.pyyaml.org/load for full details.
+  config = yaml.load(fh)
+/gpfs/home/rk18g/.conda/envs/scg/lib/python2.7/site-packages/scg/utils.py:43: RuntimeWarning: divide by zero encountered in log
+  return np.sign(x) * np.sign(y) * np.exp(np.log(np.abs(x)) + np.log(np.abs(y)))
+
+real	0m16.478s
+user	0m15.037s
+sys	0m1.483s
+/gpfs/home/rk18g/.conda/envs/scg/lib/python2.7/site-packages/scg/run.py:89: YAMLLoadWarning: calling yaml.load() without Loader=... is deprecated, as the default Loader is unsafe. Please read https://msg.pyyaml.org/load for full details.
+  config = yaml.load(fh)
+/gpfs/home/rk18g/.conda/envs/scg/lib/python2.7/site-packages/scg/utils.py:43: RuntimeWarning: divide by zero encountered in log
+  return np.sign(x) * np.sign(y) * np.exp(np.log(np.abs(x)) + np.log(np.abs(y)))
+
+real	0m17.314s
+user	0m15.871s
+sys	0m1.488s
+/gpfs/home/rk18g/.conda/envs/scg/lib/python2.7/site-packages/scg/run.py:89: YAMLLoadWarning: calling yaml.load() without Loader=... is deprecated, as the default Loader is unsafe. Please read https://msg.pyyaml.org/load for full details.
+  config = yaml.load(fh)
+/gpfs/home/rk18g/.conda/envs/scg/lib/python2.7/site-packages/scg/utils.py:43: RuntimeWarning: divide by zero encountered in log
+  return np.sign(x) * np.sign(y) * np.exp(np.log(np.abs(x)) + np.log(np.abs(y)))
+
+real	0m16.498s
+user	0m14.923s
+sys	0m1.489s
