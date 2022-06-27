@@ -37,6 +37,19 @@ converted into BnpC file format with the following script:
 	OR 
 	use ``` -t ``` flag to let BnpC know to transpose the input matrix.
 
+The output of BnpC has the following two important files:
+
+1. The cells assigned to each cluster number is provided in the file 'assignment.txt' and the genotype of each of these clusters are present in the file 'genotypes_posterior_mean.tsv'.
+2. Using these two files we can get the consensus genotype matrix. Use the following script to get the consensus genotype matrix:
+
+	``` python bnpc_getGmatrix.py -cc assignment.txt -gp genotypes_posterior_mean.tsv -sim true -op consensus_genotype_fileName.tsv ```
+3. To evaluate the accuracy, sensitivity, specificity use the following script:
+
+	``` python ../evaluateMetrics.py -cg consensus_genotype_fileName.tsv -gtG groundTruthFile -sim true > eval_metrics.txt ``` 
+4. To evaluate the V-measure use the following script:
+
+	``` python ../evaluation.py -i "bnpc:"assignment.txt -G groundTruthFile -v >> eval_metrics.txt ```
+
 ## <a name="scg"></a>SCG ##
 
 ### Installing the software and preparing the files. These steps are general for all datasets, but they should be done only once. ###
@@ -57,6 +70,20 @@ converted into BnpC file format with the following script:
 	``` python processSimInput.py -input inputDFile -output SCG_DFile ```
 	The input matrix should be a binary matrix with 0 indicating absence of mutation, 1 indicating presence of mutation and 3 indicating missing value. 
 
+The output of SCG has the following two important files:
+
+1. cluster_posteriors.tsv.gz has the probability of clusters belonging to each cell. We have to choose the cluster number with the maximum probability for a cell. 
+From the file genotype_posteriors.tsv.gz  we get the genotype for each cluster.
+2. Using these two files we can get the consensus genotype matrix. Use the following script to get the consensus genotype matrix:
+
+	``` python scg_getGmatrix_new.py -cp cluster_posteriors.tsv -gp genotype_posteriors.tsv.gz -D inputDMatrix -output consensus_genotype_fileName.tsv ```
+3. To evaluate the accuracy, sensitivity, specificity use the following script:
+
+	``` python ../evaluateMetrics.py -cg consensus_genotype_fileName.tsv -gtG groundTruthFile -sim true > eval_metrics.txt ```
+4. To evaluate the V-measure use the following script:
+
+        ``` python ../evaluation.py -i "scg:"cluster_posteriors.tsv -G groundTruthFile -v >> eval_metrics.txt ```
+
 ## <a name="scclone"></a>SCClone ##
 
 ### Installing the software and preparing the files. These steps are general for all datasets, but they should be done only once. ###
@@ -72,3 +99,15 @@ converted into BnpC file format with the following script:
 2. SCClone accept input D matrix with or withour header. It accepts a binary genotype matrix with cells as rows and mutations as columns. The columns are tab separated with 0 indicating absence of mutation, 1 indicating presence of mutation and 3 indicating genotype information is missing.
 
 
+The output of SCClone has the following two important files:
+
+1. The file data.cell_assignment provides the assigned cluster number for each cell. And the file data.clone_genotypes provided the genotypes for each cluster.
+2. Using these two files we can get the consensus genotype matrix. Use the following script to get the consensus genotype matrix:
+
+	``` python scclone_getGmatrix.py -ca data.cell_assignment -cg data.clone_genotypes -sim true -op consensus_genotype_fileName.tsv ```
+3. To evaluate the accuracy, sensitivity, specificity use the following script:
+
+        ``` python ../evaluateMetrics.py -cg consensus_genotype_fileName.tsv -gtG groundTruthFile -sim true > eval_metrics.txt ```
+4. To evaluate the V-measure use the following script:
+
+        ``` python ../evaluation.py -i "scclone:"data.cell_assignment -G groundTruthFile -v >> eval_metrics.txt ```
