@@ -72,8 +72,8 @@ The output of BnpC has the following two important files:
 
 The output of SCG has the following two important files:
 
-1. cluster_posteriors.tsv.gz has the probability of clusters belonging to each cell. We have to choose the cluster number with the maximum probability for a cell. 
-From the file genotype_posteriors.tsv.gz  we get the genotype for each cluster.
+1. 'cluster_posteriors.tsv.gz' has the probability of clusters belonging to each cell. We have to choose the cluster number with the maximum probability for a cell. 
+From the file 'genotype_posteriors.tsv.gz'  we get the genotype for each cluster.
 2. Using these two files we can get the consensus genotype matrix. Use the following script to get the consensus genotype matrix:
 
 	``` python scg_getGmatrix_new.py -cp cluster_posteriors.tsv -gp genotype_posteriors.tsv.gz -D inputDMatrix -output consensus_genotype_fileName.tsv ```
@@ -101,7 +101,7 @@ From the file genotype_posteriors.tsv.gz  we get the genotype for each cluster.
 
 The output of SCClone has the following two important files:
 
-1. The file data.cell_assignment provides the assigned cluster number for each cell. And the file data.clone_genotypes provided the genotypes for each cluster.
+1. The file 'data.cell_assignment' provides the assigned cluster number for each cell. And the file 'data.clone_genotypes' provided the genotypes for each cluster.
 2. Using these two files we can get the consensus genotype matrix. Use the following script to get the consensus genotype matrix:
 
 	``` python scclone_getGmatrix.py -ca data.cell_assignment -cg data.clone_genotypes -sim true -op consensus_genotype_fileName.tsv ```
