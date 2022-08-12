@@ -76,7 +76,7 @@ The output of SCG has the following two important files:
 From the file 'genotype_posteriors.tsv.gz'  we get the genotype for each cluster.
 2. Using these two files we can get the consensus genotype matrix. Use the following script to get the consensus genotype matrix:
 
-	``` python scg_getGmatrix_new.py -cp cluster_posteriors.tsv -gp genotype_posteriors.tsv.gz -D inputDMatrix -output consensus_genotype_fileName.tsv ```
+	``` python scg_getGmatrix.py -cp cluster_posteriors.tsv -gp genotype_posteriors.tsv.gz -D inputDMatrix -output consensus_genotype_fileName.tsv ```
 3. To evaluate the accuracy, sensitivity, specificity use the following script:
 
 	``` python ../evaluateMetrics.py -cg consensus_genotype_fileName.tsv -gtG groundTruthFile -sim true > eval_metrics.txt ```
@@ -91,7 +91,7 @@ From the file 'genotype_posteriors.tsv.gz'  we get the genotype for each cluster
 1. Download SCClone from https://github.com/qasimyu/scclone. There are two ways to use SCClone:
 	* Follow the instructions in their GitHub page and build their binary.
 	* Use ``` scclone ``` script inside the scclone folder to run in the following way:
-	``` time ../../scclone-1.0/bin/scclone -i inputFile -a 0.01 -b 0.1 -o outputFile ```
+	``` time ../../scclone-1.0/bin/scclone -i inputFile -a 0.01 -o outputFile ```
 	* Parameters:
 		** ``` -a ```, false positive rate and default is 0.01.
 		** ``` -b ```, false negative rate. If not mentioned then SCClone does a grid search to find the optimum beta value.
