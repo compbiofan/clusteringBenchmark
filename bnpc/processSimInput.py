@@ -10,6 +10,7 @@ input_df = pd.read_csv(args.input, sep='\t', header=None)
 transposed_df = input_df.T
 
 print(transposed_df)
+#transposed_df.to_csv("real_data_input/real_data_for_bnpc.tsv", sep='\t', index=False, header=False)
 
 # Save input for BnpC 
 op_fname = (((args.input.split('/'))[4]).split('.'))[0]

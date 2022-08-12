@@ -111,3 +111,19 @@ The output of SCClone has the following two important files:
 4. To evaluate the V-measure use the following script:
 
         ``` python ../evaluation.py -i "scclone:"data.cell_assignment -G groundTruthFile -v >> eval_metrics.txt ```
+
+## <a name="simulator"></a>Simulator ##
+
+### Steps to run the simulator using different variables. ###
+
+#### make tree structure for different number of leaves, folders in t*
+for i in 4 8 16 32; do for j in `seq 1 5`; do python gen_tree.py -F $i -B 0.2 -o t$i/rep$j/tree_${i}_p2.csv; done; done
+
+#### make data for all different number of leaves, folders in t*
+for i in 4 8 16 32; do for j in `seq 1 5`; do python ~/fangroup/clustering/code/sc_cluster/simulation/sim_par.py -f t$i/rep$j/tree_${i}_p2.csv -P t$i/rep$j/input_t${i}_rep${j}; done; done
+
+#### make data when alpha (False positive rate) varies, folders in a*
+a=0.001; i=ap001; for j in `seq 1 5`; do python ~/fangroup/clustering/code/sc_cluster/simulation/sim_par.py -a $a -f $i/rep$j/tree_8_p2.csv -P $i/rep$j/input_${i}_rep${j}; done;
+
+
+

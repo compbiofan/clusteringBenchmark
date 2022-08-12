@@ -84,6 +84,8 @@ def get_config_name(fileName,sim):
         config_name = (((fileName.split('/'))[2]).split('.'))[0]
         config_file_name = 'config_'+config_name+'.yaml'
         print(" Config name ",config_file_name)
+    elif sim == "real":
+        config_file_name = "real_data.yaml"
     else:
         filename_list = fileName.split('/')
         #((fileName.split('/'))[2]).split('.')
@@ -95,11 +97,36 @@ def get_config_name(fileName,sim):
         print(" Config name ",config_file_name)
     return config_file_name
 
+def save_multipleSCGresults_doublets(config_params, fileName, cluster, nIters, opDir, config_path, sim):
+    cluster_update = {'num_clusters': int(cluster)}
+    ufileName = {'data': {'snv': {'file': fileName, 'gamma_prior':[[9.99, 0.01, 1.0e-15], [2.5, 7.5, 1.0e-15], [1.0e-15, 1.0e-15, 1]], 'state_prior': [1, 1, 1.0e-15]}}}
+    config_file_name = get_config_name(fileName,sim)
+    config_params.update(cluster_update)
+    config_params.update(ufileName)
+    # Update the config file to have the values
+    with open(config_path+'/'+config_file_name, 'w') as fp:
+        documents = yaml.dump(config_params, fp)
+
+    seed_lb_dict = {}
+    for j in range(0, 20): # Based on the restart value change this loop. Otherwise let it stay as it is.
+        print("Iteration ",j)
+        seed_value = random.randint(0, 10000)
+        print(seed_value)
+        dir_name = 'scg_clusterNo_'+str(cluster)+'_iter_'+str(j)
+        print(" Dir name ",opDir+'/'+dir_name)
+        subprocess.call('mkdir '+opDir+'/'+dir_name, shell=True)
+        scg_cmd = 'time scg run_doublet_model --config_file '+config_path+'/'+config_file_name+' --state_map_file ../../SCG_Roth/scg/examples/doublet_state_map.yaml --seed '+str(seed_value)+' --lower_bound_file '+opDir+'/'+dir_name+'/lower_bound_file'+str(seed_value)+'.txt --max_num_iters '+nIters+' --out_dir '+opDir+'/'+dir_name
+        subprocess.call(scg_cmd, shell=True)
+        #os.chdir(wd)
+        seed_lb_dict = save_seed_lb(opDir, dir_name, seed_value, seed_lb_dict)
+    print(seed_lb_dict)
+    find_best_run(config_params, fileName, cluster, nIters, opDir, seed_lb_dict, config_file_name,config_path)
+
 def save_multipleSCGresults(config_params, fileName, cluster, nIters, opDir, config_path, sim):
     #for i in clusterNo_list:
     cluster_update = {'num_clusters': int(cluster)}
     #ufileName = {'data': {'snv': {'file': fileName, 'gamma_prior':[[98, 1, 1], [25, 50, 25], [1, 1, 98]], 'state_prior': [1, 1, 1]}}}
-    ufileName = {'data': {'snv': {'file': fileName, 'gamma_prior':[[9.99, 0.01, 1.0e-15], [2.5, 7.5, 1.0e-15], [1.0e-15, 1.0e-15, 1]], 'state_prior': [1, 1, 1]}}}
+    ufileName = {'data': {'snv': {'file': fileName, 'gamma_prior':[[9.99, 0.01, 1.0e-15], [2.5, 7.5, 1.0e-15], [1.0e-15, 1.0e-15, 1]], 'state_prior': [1, 1, 1.0e-15]}}}
     #gamma_prior = {'data': {'snv': {'gamma_prior':[[98, 1, 1], [25, 50, 25], [1, 1, 98]]}}}
     #state_prior = {'data': {'snv': {'state_prior': [1, 1, 1]}}}
     config_file_name = get_config_name(fileName,sim)
@@ -111,7 +138,7 @@ def save_multipleSCGresults(config_params, fileName, cluster, nIters, opDir, con
         documents = yaml.dump(config_params, fp)
     
     seed_lb_dict = {}
-    for j in range(0, 4): # Based on the restart value change this loop. Otherwise let it stay as it is.
+    for j in range(0, 20): # Based on the restart value change this loop. Otherwise let it stay as it is.
         print("Iteration ",j)
         seed_value = random.randint(0, 10000)
         print(seed_value)
@@ -137,14 +164,20 @@ parser.add_argument("-niters", "--niters",dest ="niters", help="No of iterations
 parser.add_argument("-config_path", "--config_path",dest="config_path", help="Path to save the config files")
 parser.add_argument("-opDir", "--opDir",dest ="opDir", help="Output Directory")
 parser.add_argument("-sim", "--sim",dest="sim", help="Simulated dataset or not")
+parser.add_argument("-doublet", "--doublet",dest="doublet", help="Doublet or not")
+#parser.add_argument("-state_map", "--state_map",dest="state_map", help="State map config file")
 #args = parser.parse_args()
 args, unknown = parser.parse_known_args()
 
+print(" No of iterations ",args.niters)
 cluster = calculate_max_clusters(args.input)
 
 config_params = read_yaml(args.scg_config)
 #clusterNo_list = args.cluster_list
-save_multipleSCGresults(config_params, args.input, cluster, args.niters, args.opDir, args.config_path, args.sim)
+if args.doublet == "true":
+    save_multipleSCGresults_doublets(config_params, args.input, cluster, args.niters, args.opDir, args.config_path, args.sim)
+else:
+    save_multipleSCGresults(config_params, args.input, cluster, args.niters, args.opDir, args.config_path, args.sim)
  
 #config_params = read_yaml('../../SCG_Roth/scg/examples/config.yaml')
 #clusterNo_list = [5,6,7,8,9,10]

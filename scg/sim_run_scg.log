@@ -12,7 +12,7 @@ done
 
 conda activate pythonenv
 
-# Process the sim input files for bnpc
+# Process the sim input files for scg
 for i in ./sim_input/*; do
         simDataType=$(echo $i| cut -d'/' -f 3)
         for k in `seq 1 5`; do
@@ -30,17 +30,34 @@ for i in ./sim_input/*; do
 	simDataType=$(echo $i| cut -d'/' -f 3)
 	for k in `seq 1 5`; do
 		for j in ./sim_input/$simDataType/rep$k/*D.tsv.gz; do
-			echo "python save_multipleSCGresults.py -opDir ./sim_output/$simDataType/rep$k -input $j -scg_config ../../SCG_Roth/scg/examples/config.yaml -config_path ./sim_input/$simDataType/rep$k -sim true -niters 10000" >> sim_run_scg.sh;
+			echo "python save_multipleSCGresults.py -opDir ./sim_output/$simDataType/rep$k -input $j -scg_config ../../SCG_Roth/scg/examples/config.yaml -config_path ./sim_input/$simDataType/rep$k -sim true -niters 10000000" >> sim_run_scg.sh;
         		echo "#" >> sim_run_scg.sh;
 		done
 	done
 done
 
+# This script is only for running doublets
+for i in ./sim_input/*; do
+	simDataType=$(echo $i| cut -d'/' -f 3)
+	if [[ "$simDataType" =~ .*"dp"*. ]]; then
+  		echo $simDataType
+		for k in `seq 1 5`; do
+                	for j in ./sim_input/$simDataType/rep$k/*D.tsv.gz; do
+                        	echo "python save_multipleSCGresults.py -opDir ./sim_output/$simDataType/rep$k -input $j -scg_config ../../SCG_Roth/scg/examples/config.yaml -config_path ./sim_input/$simDataType/rep$k -sim true -doublet false -niters 10000000" >> sim_run_normal_scg_doublet.sh;
+                        	echo "#" >> sim_run_normal_scg_doublet.sh;
+                	done
+        	done
+	fi
+done
+        #for k in `seq 1 5`; do
+        #        for j in ./sim_input/$simDataType/rep$k/*D.tsv.gz; do
+
+
 # Run the python command to generate the slurm files
 python ../gen_jobs.py -input sim_run_scg.sh -n 2 -mem_per_cpu 4GB -p fan_q -algo scg -sim true
 
 #Launch jobs
-for i in `seq 0 6`; do sbatch sim_run_scg.$i.slurm; done
+for i in `seq 80 84`; do sbatch sim_run_scg.$i.slurm; done
 
 #Get the consensus genotype matrix
 for i in ./sim_output/*; do
@@ -50,8 +67,19 @@ for i in ./sim_output/*; do
                 fileName=$simDataType'_'rep$k
         	#echo $fileName
         	#python scg_getGmatrix.py -cp ./sim_output/$simDataType/rep$k/cluster_posteriors.tsv.gz -gp ./sim_output/$simDataType/rep$k/genotype_posteriors.tsv.gz -output ./sim_consensus_genotype/$fileName.tsv
-        	python ../evaluateMetrics.py -cg ./sim_consensus_genotype/$fileName.tsv -gtG ./sim_input/$simDataType/rep$k/'input_'$fileName'.G.csv' -sim true > ./sim_output/$simDataType/rep$k/eval_metrics.txt
+        	python scg_getGmatrix_new.py -cp ./sim_output/$simDataType/rep$k/cluster_posteriors.tsv -gp ./sim_output/$simDataType/rep$k/genotype_posteriors.tsv.gz -D ./sim_input/$simDataType/rep$k/'input_'$simDataType'_'rep$k'.D.tsv.gz' -output ./sim_consensus_genotype_new/$fileName.tsv
+        	if [[ "$simDataType" =~ .*"dp"*. ]]; then
+                        python ../evaluateMetrics.py -cg ./sim_consensus_genotype_new/$fileName.tsv -gtG ./sim_input/$simDataType/rep$k/'input_'$fileName'.G.csv' -sim true -doublet true -doubletFile ./sim_input/$simDataType/rep$k/'input_'$simDataType'_'rep$k'.SNVcell.csv' > ./sim_output/$simDataType/rep$k/eval_metrics.txt
+                        gunzip ./sim_output/$simDataType/rep$k/"cluster_posteriors.tsv.gz"
+			python ../evaluation.py -i "scg:"./sim_output/$simDataType/rep$k/"cluster_posteriors.tsv" -G ./sim_input/$simDataType/rep$k/'input_'$fileName'.G.csv' -d true -df ./sim_input/$simDataType/rep$k/'input_'$simDataType'_'rep$k'.SNVcell.csv' -v >> ./sim_output/$simDataType/rep$k/eval_metrics.txt
+		else
+        		python ../evaluateMetrics.py -cg ./sim_consensus_genotype_new/$fileName.tsv -gtG ./sim_input/$simDataType/rep$k/'input_'$fileName'.G.csv' -sim true > ./sim_output/$simDataType/rep$k/eval_metrics.txt
+        		#gunzip ./sim_output/$simDataType/rep$k/"cluster_posteriors.tsv.gz"
+			python ../evaluation.py -i "scg:"./sim_output/$simDataType/rep$k/"cluster_posteriors.tsv" -G ./sim_input/$simDataType/rep$k/'input_'$fileName'.G.csv' -v >> ./sim_output/$simDataType/rep$k/eval_metrics.txt
+		fi
         done
 done
 
-
+# Run the following scripts by changing the required arguments to get boxplots for metrics and time
+python ../boxplot_metrics.py -algo scclone scg bnpc -datasets t8 mp3 -output missingRate
+python ../boxplot_time.py -algo scg scclone bnpc -data M50 t8 M500 -output mutations
