@@ -64,7 +64,7 @@ The output of BnpC has the following two important files:
 		** ``` -config_path ```, path to save the updated config file to run SCG.
 		** ``` -sim ```, pass it as True if the input matrix if from Simulated data otherwise pass it as False.
 		** ``` -niters ```, number of iterations to use for SCG.
-	* Our script restarts SCG for 20 times and based on the MAX_ELBO value choosed the best seed value. Then re-run SCG with this seed value to get the results.
+	* Our script restarts SCG for 20 times and based on the MAX_ELBO value chose the best seed value. Then re-run SCG with this seed value to get the results.
 
 2. SCG input D matrix needs to have cell_IDs annotated and a header indicating mutations with dimensions cells x mutations. This can be achieved by the following script:
 	``` python processSimInput.py -input inputDFile -output SCG_DFile ```
