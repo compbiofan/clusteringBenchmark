@@ -1,2 +1,0 @@
-converged: true
-lower_bound: -80.0

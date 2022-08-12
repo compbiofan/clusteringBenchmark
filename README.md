@@ -37,6 +37,8 @@ converted into BnpC file format with the following script:
 	OR 
 	use ``` -t ``` flag to let BnpC know to transpose the input matrix.
 
+We have included an example input data to use which is available at ``` bnpc/example_data/input_D.csv```.
+
 The output of BnpC has the following two important files:
 
 1. The cells assigned to each cluster number is provided in the file 'assignment.txt' and the genotype of each of these clusters are present in the file 'genotypes_posterior_mean.tsv'.
@@ -70,6 +72,8 @@ The output of BnpC has the following two important files:
 	``` python processSimInput.py -input inputDFile -output SCG_DFile ```
 	The input matrix should be a binary matrix with 0 indicating absence of mutation, 1 indicating presence of mutation and 3 indicating missing value. 
 
+We have included a processed example input data to use which is available at ``` scg/example_data/input_D.tsv.gz```.
+
 The output of SCG has the following two important files:
 
 1. 'cluster_posteriors.tsv.gz' has the probability of clusters belonging to each cell. We have to choose the cluster number with the maximum probability for a cell. 
@@ -98,6 +102,7 @@ From the file 'genotype_posteriors.tsv.gz'  we get the genotype for each cluster
 
 2. SCClone accept input D matrix with or withour header. It accepts a binary genotype matrix with cells as rows and mutations as columns. The columns are tab separated with 0 indicating absence of mutation, 1 indicating presence of mutation and 3 indicating genotype information is missing.
 
+We have included an example input data to use which is available at ``` scclone/example_data/input_D.csv```.
 
 The output of SCClone has the following two important files:
 
