@@ -116,30 +116,30 @@ The output of SCClone has the following two important files:
 
 ### Steps to run the simulator using different variables. ###
 
-#### make tree structure for different number of leaves. Replace the values of i with desired number of leaves, folders in t*
+#### Make tree structure for different number of leaves. Replace the values of ```i```  with desired number of leaves, folders in t*
 ``` for i in 4 8 16 32; do for j in `seq 1 5`; do python gen_tree.py -F $i -B 0.2 -o t$i/rep$j/tree_${i}_p2.csv; done; done ```
 
 Here the parameter ``` B ``` indicates beta splitting variable whose default value is 0.2.
 
-#### make data for all different number of leaves.  Replace the values of ```i``` with desired number of leaves, folders in t*
+#### Make data for all different number of leaves.  Replace the values of ```i``` with desired number of leaves, folders in t*
 ``` for i in 4 8 16 32; do for j in `seq 1 5`; do python sim_par.py -f t$i/rep$j/tree_${i}_p2.csv -P t$i/rep$j/input_t${i}_rep${j}; done; done ```
 
-#### make data when alpha (False positive rate) varies. Replace the value of ```a``` with desired false positive rate, folders in a*
+#### Make data when alpha (False positive rate) varies. Replace the value of ```a``` with desired false positive rate, folders in a*
 ``` a=0.001; i=ap001; for j in `seq 1 5`; do python sim_par.py -a $a -f $i/rep$j/tree_8_p2.csv -P $i/rep$j/input_${i}_rep${j}; done; ```
 
-#### make data when beta (False negative rate) varies. Replace the value of ```b``` with desired false negative rate, folders in b*
+#### Make data when beta (False negative rate) varies. Replace the value of ```b``` with desired false negative rate, folders in b*
 ``` b=0.1; i=bp1; for j in `seq 1 5`; do python sim_par.py -b $b -f $i/rep$j/tree_8_p2.csv -P $i/rep$j/input_${i}_rep${j}; done; ```
 
-#### make data when missing data rate varies. Replace the value of ```m``` with desired missing rate, folders in m*
+#### Make data when missing data rate varies. Replace the value of ```m``` with desired missing rate, folders in m*
 ``` m=0.3; i=mp3; for j in `seq 1 5`; do python sim_par.py -m $m -f $i/rep$j/tree_8_p2.csv -P $i/rep$j/input_${i}_rep${j}; done; ```
 
-#### make data when number of cells varies. Replace the value of ```N``` with desired number of cells, folders in N*
+#### Make data when number of cells varies. Replace the value of ```N``` with desired number of cells, folders in N*
 ``` N=100; i=N100; for j in `seq 1 5`; do python sim_par.py -c $N -f $i/rep$j/tree_8_p2.csv -P $i/rep$j/input_${i}_rep${j}; done; ```
 
-#### make data when number of mutations varies. Replace the value of ```M``` with desired number of mutations, folders in M*
+#### Make data when number of mutations varies. Replace the value of ```M``` with desired number of mutations, folders in M*
 ``` M=50; i=M50; for j in `seq 1 5`; do python sim_par.py -n $M -f $i/rep$j/tree_8_p2.csv -P $i/rep$j/input_${i}_rep${j}; done; ```
 
-#### make tree structure for different beta splitting model variable. Replace the value of ```s``` with desired beta splitting variable, folders in s*
+#### Make tree structure for different beta splitting model variable. Replace the value of ```s``` with desired beta splitting variable, folders in s*
 ``` s=0.05; i=sp05; for j in `seq 1 5`; do python gen_tree.py -B $s -o $i/rep$j/tree_8_p05.csv; python sim_par.py -f $i/rep$j/tree_8_p05.csv -P $i/rep$j/input_${i}_rep${j}; done ```
 
 #### make data when doublet rate varies. Replace the value of ```dp``` with doublet rate, folders in s*
