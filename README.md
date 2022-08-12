@@ -24,7 +24,7 @@ Benchmark of the clustering of scDNAseq cells.
 1. Download BnpC from https://github.com/cbg-ethz/BnpC. There are two ways to use BnpC: 
 	* Follow the instructions in their GitHub page and install their conda environment.
 	* Use the run_BnpC.py script to run BnpC in the following way:
-	``` time python ../../BnpC/run_BnpC.py inputFile -pp 0.75 0.75 -o outputFile ```
+	``` time python ../../BnpC/run_BnpC.py inputFile -o outputFile ```
 
 	We used ``` pp ``` argument because initially our date had few mutations and we followed the NOTE given by BnpC authors:
 
