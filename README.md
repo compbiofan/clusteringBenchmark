@@ -52,12 +52,12 @@ The output of BnpC has the following two important files:
 
 	For doublets run the script with a ```doublet``` flag:
 
-		``` python ../evaluateMetrics.py -cg consensus_genotype_fileName.tsv -gtG groundTruthFile -h true/false -doublet true -doubletFile doubletFileInformation > eval_metrics.txt ```
+	``` python ../evaluateMetrics.py -cg consensus_genotype_fileName.tsv -gtG groundTruthFile -h true/false -doublet true -doubletFile doubletFileInformation > eval_metrics.txt ```
 	An example doublet information file is provided in ```bnpc/example_data```
 	
 4. To evaluate the V-measure use the following script:
 
-	``` python ../evaluation.py -i "bnpc:"assignment.txt -G groundTruthFile -v >> eval_metrics.txt ```
+``` python ../evaluation.py -i "bnpc:"assignment.txt -G groundTruthFile -v >> eval_metrics.txt ```
 
 ## <a name="scg"></a>SCG ##
 
@@ -96,6 +96,7 @@ From the file 'genotype_posteriors.tsv.gz'  we get the genotype for each cluster
 	For doublets run the script with a ```doublet``` flag:
 
 	``` python ../evaluateMetrics.py -cg consensus_genotype_fileName.tsv -gtG groundTruthFile -h true/false -doublet true -doubletFile doubletFileInformation > eval_metrics.txt ```
+	
 	An example doublet information file is provided in ```scg/example_data```
 	
 4. To evaluate the V-measure use the following script:
@@ -136,7 +137,7 @@ The output of SCClone has the following two important files:
 	
 4. To evaluate the V-measure use the following script:
 
-        ``` python ../evaluation.py -i "scclone:"data.cell_assignment -G groundTruthFile -v >> eval_metrics.txt ```
+    ``` python ../evaluation.py -i "scclone:"data.cell_assignment -G groundTruthFile -v >> eval_metrics.txt ```
 
 ## <a name="simulator"></a>Simulator ##
 
