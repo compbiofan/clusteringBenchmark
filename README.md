@@ -58,13 +58,13 @@ The output of BnpC has the following two important files:
 
 1. Download SCG from https://github.com/Roth-Lab/scg. Since running SCG requires using multiple user parameters we recommend using our script to run SCG making sure that the path to SCG is valid.
 	* Use the following script to run SCG:
-	``` python save_multipleSCGresults.py -opDir outputDir -input inputFile -scg_config SCG_CONFIG_FILE_PATH -config_path PATH_TO_SAVE_NEW_CONFIG -sim true/false -niters 10000000 ```
+	``` python save_multipleSCGresults.py -opDir outputDir -input inputFile -scg_config SCG_CONFIG_FILE_PATH -config_path PATH_TO_SAVE_NEW_CONFIG -config_fname NEW_CONFIG_FILENAME -niters 10000000 ```
 	* Parameters: 
 		** ``` -opDir ```, path to save the SCG results.
 		** ``` -input ```, input D matrix.
-		** ```  -scg_config ```, SCG config file which the script reads and update to use it for running SCG.
+		** ```  -scg_config ```, original SCG config file which the script reads and update to use it for running SCG.
 		** ``` -config_path ```, path to save the updated config file to run SCG.
-		** ``` -sim ```, pass it as True if the input matrix if from Simulated data otherwise pass it as False.
+		** ``` -config_fname ```, filename that will be used to save the new updated config file to run SCG.
 		** ``` -niters ```, number of iterations to use for SCG.
 	* Our script restarts SCG for 20 times and based on the MAX_ELBO value chose the best seed value. Then re-run SCG with this seed value to get the results.
 
