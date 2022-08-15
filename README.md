@@ -47,7 +47,8 @@ The output of BnpC has the following two important files:
 	``` python bnpc_getGmatrix.py -cc assignment.txt -gp genotypes_posterior_mean.tsv -sim true -op consensus_genotype_fileName.tsv ```
 3. To evaluate the accuracy, sensitivity, specificity use the following script:
 
-	``` python ../evaluateMetrics.py -cg consensus_genotype_fileName.tsv -gtG groundTruthFile -sim true > eval_metrics.txt ``` 
+	``` python ../evaluateMetrics.py -cg consensus_genotype_fileName.tsv -gtG groundTruthFile -h true/false > eval_metrics.txt ```
+The flag ```h``` is used to indicate if the consensus_genotype_fileName.tsv has a header.
 4. To evaluate the V-measure use the following script:
 
 	``` python ../evaluation.py -i "bnpc:"assignment.txt -G groundTruthFile -v >> eval_metrics.txt ```
@@ -83,7 +84,8 @@ From the file 'genotype_posteriors.tsv.gz'  we get the genotype for each cluster
 	``` python scg_getGmatrix.py -cp cluster_posteriors.tsv -gp genotype_posteriors.tsv.gz -D inputDMatrix -output consensus_genotype_fileName.tsv ```
 3. To evaluate the accuracy, sensitivity, specificity use the following script:
 
-	``` python ../evaluateMetrics.py -cg consensus_genotype_fileName.tsv -gtG groundTruthFile -sim true > eval_metrics.txt ```
+	``` python ../evaluateMetrics.py -cg consensus_genotype_fileName.tsv -gtG groundTruthFile -h true/false > eval_metrics.txt ```
+The flag ```h``` is used to indicate if the consensus_genotype_fileName.tsv has a header.
 4. To evaluate the V-measure use the following script:
 
         ``` python ../evaluation.py -i "scg:"cluster_posteriors.tsv -G groundTruthFile -v >> eval_metrics.txt ```
@@ -112,7 +114,8 @@ The output of SCClone has the following two important files:
 	``` python scclone_getGmatrix.py -ca data.cell_assignment -cg data.clone_genotypes -sim true -op consensus_genotype_fileName.tsv ```
 3. To evaluate the accuracy, sensitivity, specificity use the following script:
 
-        ``` python ../evaluateMetrics.py -cg consensus_genotype_fileName.tsv -gtG groundTruthFile -sim true > eval_metrics.txt ```
+        ``` python ../evaluateMetrics.py -cg consensus_genotype_fileName.tsv -gtG groundTruthFile -h true/false > eval_metrics.txt ```
+The flag ```h``` is used to indicate if the consensus_genotype_fileName.tsv has a header.
 4. To evaluate the V-measure use the following script:
 
         ``` python ../evaluation.py -i "scclone:"data.cell_assignment -G groundTruthFile -v >> eval_metrics.txt ```
