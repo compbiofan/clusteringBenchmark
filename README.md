@@ -127,7 +127,7 @@ The output of SCClone has the following two important files:
 	``` python scclone_getGmatrix.py -ca data.cell_assignment -cg data.clone_genotypes -op consensus_genotype_fileName.tsv ```
 3. To evaluate the accuracy, sensitivity, specificity use the following script:
 
-        ``` python ../evaluateMetrics.py -cg consensus_genotype_fileName.tsv -gtG groundTruthFile -h true/false > eval_metrics.txt ```
+      ``` python ../evaluateMetrics.py -cg consensus_genotype_fileName.tsv -gtG groundTruthFile -h true/false > eval_metrics.txt ```
 	The flag ```h``` is used to indicate if the consensus_genotype_fileName.tsv has a header.
 
 	For doublets run the script with a ```doublet``` flag:
