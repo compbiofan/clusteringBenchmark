@@ -75,21 +75,7 @@ def doublet_get_cell_mutation(mutations, noOfCells, doublet_cells_list):
     print(cluster_mutation_df)
     return cluster_mutation_df.T
 
-def get_cell_mutation(mutations,input_D):
-    cluster_mutation_df = pd.read_csv(mutations, sep='\t', index_col = 0)
-    #cluster_mutation_df_T = cluster_mutation_df.T
-    print(cluster_mutation_df)
-    input_df = pd.read_csv(input_D, sep='\t', index_col = 0)
-    #print(input_df)
-    cells = list(input_df.index) # For doublets remove those cell IDs from the list
-    pos = list(input_df.columns)
-    cluster_mutation_df.index = pos
-    cluster_mutation_df.columns = cells
-    #mutation_df = cluster_mutation_df.reindex(pos, columns=cells)
-    print(cluster_mutation_df)
-    return cluster_mutation_df.T
-
-def get_sim_cell_mutation(mutations):
+def get_cell_mutation(mutations):
     cluster_mutation_df = pd.read_csv(mutations, sep='\t', index_col = 0)
     print(cluster_mutation_df)
     return cluster_mutation_df.T
@@ -98,12 +84,11 @@ parser = argparse.ArgumentParser()
 parser.add_argument("-cc", "--cc",dest ="cc", help="Assignment.txt file indicating clusters of cells")
 parser.add_argument("-gp", "--gp",dest ="gp", help="Mutations for each cluster")
 parser.add_argument("-input", "--input",dest="input", help="Sample input to bnpc")
-parser.add_argument("-sim", "--sim",dest="sim", help="Simulated data")
 parser.add_argument("-doublet", "--doublet",dest="doublet", help="Doublet data")
 parser.add_argument("-op","--op",dest="op", help="Output file to save")
 args = parser.parse_args()
 
-if args.sim == "true" and args.doublet == "true":
+if args.doublet == "true":
     doublet_cells = get_doublet_cells(args.cc)
     cell_cluster,cell_count = doublet_get_cell_cluster(args.cc, doublet_cells)
     cell_mutation_df = doublet_get_cell_mutation(args.gp, cell_count-1, doublet_cells)
@@ -111,11 +96,7 @@ if args.sim == "true" and args.doublet == "true":
 else:
     cell_cluster = get_cell_cluster(args.cc)
     #print(cell_cluster.values())
-    if args.sim == "true":
-        cell_mutation_df = get_sim_cell_mutation(args.gp)
-        cell_mutation_df.to_csv(args.op,sep='\t')
-    else:
-        cell_mutation_df = get_cell_mutation(args.gp,args.input)
-        cell_mutation_df.to_csv(args.op,sep='\t')
+    cell_mutation_df = get_cell_mutation(args.gp)
+    cell_mutation_df.to_csv(args.op,sep='\t')
 
 

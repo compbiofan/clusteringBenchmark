@@ -37,15 +37,11 @@ def doublet_GT_CG(gt_df, cg_df, doublet_cells_list):
     #print(gt_df)
     #return gt_df
 
-def sim_read_file(tsvFile,gt):
-    if gt == "true":
+def read_file(tsvFile,h):
+    if h == "false":
         df = pd.read_csv(tsvFile, sep='\t', header=None)
     else:
         df = pd.read_csv(tsvFile, sep='\t', index_col=0)
-    return df
-
-def read_file(tsvFile):
-    df = pd.read_csv(tsvFile, sep='\t', index_col=0)
     return df
 
 def calculate_metric_from_vectors(CG_df,GT_df):
@@ -89,17 +85,17 @@ def calculate_metric_from_vectors(CG_df,GT_df):
 parser = argparse.ArgumentParser()
 parser.add_argument("-cg", "--cg",dest ="cg", help="Consensus genotype matrix")
 parser.add_argument("-gtG", "--gtG",dest ="gtG", help="Ground truth matrix")
-parser.add_argument("-sim", "--sim",dest ="sim", help="Simulated data")
+parser.add_argument("-h", "--h",dest ="header", help="Header present or absent")
 parser.add_argument("-doublet", "--doublet",dest ="doublet", help="Doublet data")
 parser.add_argument("-doubletFile", "--doubletFile",dest ="doubletFile", help="Doublet info file")
 args = parser.parse_args()
 
-if args.sim == "true":
-    CG_df = sim_read_file(args.cg,"false")
-    GT_df = sim_read_file(args.gtG,"true")
+if args.h == "false":
+    CG_df = read_file(args.cg,"false")
 else:
-    CG_df = read_file(args.cg)
-    GT_df = read_file(args.gtG)
+    CG_df = read_file(args.cg,"true")
+
+GT_df = read_file(args.gtG,"true")
 
 if args.doublet == "true":
     doublet_cells_list = get_doublet_cells(args.doubletFile)
