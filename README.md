@@ -101,7 +101,7 @@ From the file 'genotype_posteriors.tsv.gz'  we get the genotype for each cluster
 	
 4. To evaluate the V-measure use the following script:
 
-        ``` python ../evaluation.py -i "scg:"cluster_posteriors.tsv -G groundTruthFile -v >> eval_metrics.txt ```
+   ``` python ../evaluation.py -i "scg:"cluster_posteriors.tsv -G groundTruthFile -v >> eval_metrics.txt ```
 
 ## <a name="scclone"></a>SCClone ##
 
