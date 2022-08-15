@@ -79,28 +79,10 @@ def find_best_run(config_params, fileName, cluster, nIters, opDir, seed_lb_dict,
     scg_cmd = 'time scg run_singlet_model --config_file '+config_path+'/'+config_file_name+' --seed '+str(best_seed)+' --lower_bound_file '+opDir+'/'+'lower_bound.txt --max_num_iters '+nIters+' --out_dir '+opDir
     subprocess.call(scg_cmd, shell=True)
 
-def get_config_name(fileName,sim):
-    if sim == "false":
-        config_name = (((fileName.split('/'))[2]).split('.'))[0]
-        config_file_name = 'config_'+config_name+'.yaml'
-        print(" Config name ",config_file_name)
-    elif sim == "real":
-        config_file_name = "real_data.yaml"
-    else:
-        filename_list = fileName.split('/')
-        #((fileName.split('/'))[2]).split('.')
-        #print(filename_list)
-        config_name_1 = filename_list[2]
-        config_name_2 = filename_list[3]
-        print(" Config name ",config_name_1+"_"+config_name_2)
-        config_file_name = 'config_'+config_name_1+"_"+config_name_2+'.yaml'
-        print(" Config name ",config_file_name)
-    return config_file_name
-
-def save_multipleSCGresults_doublets(config_params, fileName, cluster, nIters, opDir, config_path, sim):
+def save_multipleSCGresults_doublets(config_params, fileName, cluster, nIters, opDir, config_path, config_file_name):
     cluster_update = {'num_clusters': int(cluster)}
     ufileName = {'data': {'snv': {'file': fileName, 'gamma_prior':[[9.99, 0.01, 1.0e-15], [2.5, 7.5, 1.0e-15], [1.0e-15, 1.0e-15, 1]], 'state_prior': [1, 1, 1.0e-15]}}}
-    config_file_name = get_config_name(fileName,sim)
+    #config_file_name = get_config_name(fileName,sim)
     config_params.update(cluster_update)
     config_params.update(ufileName)
     # Update the config file to have the values
@@ -122,14 +104,14 @@ def save_multipleSCGresults_doublets(config_params, fileName, cluster, nIters, o
     print(seed_lb_dict)
     find_best_run(config_params, fileName, cluster, nIters, opDir, seed_lb_dict, config_file_name,config_path)
 
-def save_multipleSCGresults(config_params, fileName, cluster, nIters, opDir, config_path, sim):
+def save_multipleSCGresults(config_params, fileName, cluster, nIters, opDir, config_path, config_file_name):
     #for i in clusterNo_list:
     cluster_update = {'num_clusters': int(cluster)}
     #ufileName = {'data': {'snv': {'file': fileName, 'gamma_prior':[[98, 1, 1], [25, 50, 25], [1, 1, 98]], 'state_prior': [1, 1, 1]}}}
     ufileName = {'data': {'snv': {'file': fileName, 'gamma_prior':[[9.99, 0.01, 1.0e-15], [2.5, 7.5, 1.0e-15], [1.0e-15, 1.0e-15, 1]], 'state_prior': [1, 1, 1.0e-15]}}}
     #gamma_prior = {'data': {'snv': {'gamma_prior':[[98, 1, 1], [25, 50, 25], [1, 1, 98]]}}}
     #state_prior = {'data': {'snv': {'state_prior': [1, 1, 1]}}}
-    config_file_name = get_config_name(fileName,sim)
+    #config_file_name = get_config_name(fileName,sim)
     config_params.update(cluster_update)
     config_params.update(ufileName)
     #print(config_params)
@@ -162,8 +144,8 @@ parser.add_argument("-input", "--input",dest ="input", help="Input matrix (simil
 parser.add_argument("-scg_config","--scg_config",dest="scg_config", help="SCG Config yaml file")
 parser.add_argument("-niters", "--niters",dest ="niters", help="No of iterations")
 parser.add_argument("-config_path", "--config_path",dest="config_path", help="Path to save the config files")
+parser.add_argument("-config_fname", "--config_fname",dest="config_fname", help="Output config file name")
 parser.add_argument("-opDir", "--opDir",dest ="opDir", help="Output Directory")
-parser.add_argument("-sim", "--sim",dest="sim", help="Simulated dataset or not")
 parser.add_argument("-doublet", "--doublet",dest="doublet", help="Doublet or not")
 #parser.add_argument("-state_map", "--state_map",dest="state_map", help="State map config file")
 #args = parser.parse_args()
@@ -175,9 +157,9 @@ cluster = calculate_max_clusters(args.input)
 config_params = read_yaml(args.scg_config)
 #clusterNo_list = args.cluster_list
 if args.doublet == "true":
-    save_multipleSCGresults_doublets(config_params, args.input, cluster, args.niters, args.opDir, args.config_path, args.sim)
+    save_multipleSCGresults_doublets(config_params, args.input, cluster, args.niters, args.opDir, args.config_path, args.config_fname)
 else:
-    save_multipleSCGresults(config_params, args.input, cluster, args.niters, args.opDir, args.config_path, args.sim)
+    save_multipleSCGresults(config_params, args.input, cluster, args.niters, args.opDir, args.config_path, args.config_fname)
  
 #config_params = read_yaml('../../SCG_Roth/scg/examples/config.yaml')
 #clusterNo_list = [5,6,7,8,9,10]
