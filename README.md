@@ -48,11 +48,11 @@ The output of BnpC has the following two important files:
 3. To evaluate the accuracy, sensitivity, specificity use the following script:
 
 	``` python ../evaluateMetrics.py -cg consensus_genotype_fileName.tsv -gtG groundTruthFile -h true/false > eval_metrics.txt ```
-The flag ```h``` is used to indicate if the consensus_genotype_fileName.tsv has a header.
+	The flag ```h``` is used to indicate if the consensus_genotype_fileName.tsv has a header.
 
-For doublets run the script with a ```doublet``` flag:
+	For doublets run the script with a ```doublet``` flag:
 
-	``` python ../evaluateMetrics.py -cg consensus_genotype_fileName.tsv -gtG groundTruthFile -h true/false -doublet true -doubletFile doubletFileInformation > eval_metrics.txt ```
+		``` python ../evaluateMetrics.py -cg consensus_genotype_fileName.tsv -gtG groundTruthFile -h true/false -doublet true -doubletFile doubletFileInformation > eval_metrics.txt ```
 4. To evaluate the V-measure use the following script:
 
 	``` python ../evaluation.py -i "bnpc:"assignment.txt -G groundTruthFile -v >> eval_metrics.txt ```
