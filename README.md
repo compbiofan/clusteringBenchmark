@@ -44,11 +44,15 @@ The output of BnpC has the following two important files:
 1. The cells assigned to each cluster number is provided in the file 'assignment.txt' and the genotype of each of these clusters are present in the file 'genotypes_posterior_mean.tsv'.
 2. Using these two files we can get the consensus genotype matrix. Use the following script to get the consensus genotype matrix:
 
-	``` python bnpc_getGmatrix.py -cc assignment.txt -gp genotypes_posterior_mean.tsv -sim true -op consensus_genotype_fileName.tsv ```
+	``` python bnpc_getGmatrix.py -cc assignment.txt -gp genotypes_posterior_mean.tsv -op consensus_genotype_fileName.tsv ```
 3. To evaluate the accuracy, sensitivity, specificity use the following script:
 
 	``` python ../evaluateMetrics.py -cg consensus_genotype_fileName.tsv -gtG groundTruthFile -h true/false > eval_metrics.txt ```
 The flag ```h``` is used to indicate if the consensus_genotype_fileName.tsv has a header.
+
+For doublets run the script with a ```doublet``` flag:
+
+	``` python ../evaluateMetrics.py -cg consensus_genotype_fileName.tsv -gtG groundTruthFile -h true/false -doublet true -doubletFile doubletFileInformation > eval_metrics.txt ```
 4. To evaluate the V-measure use the following script:
 
 	``` python ../evaluation.py -i "bnpc:"assignment.txt -G groundTruthFile -v >> eval_metrics.txt ```
@@ -86,6 +90,11 @@ From the file 'genotype_posteriors.tsv.gz'  we get the genotype for each cluster
 
 	``` python ../evaluateMetrics.py -cg consensus_genotype_fileName.tsv -gtG groundTruthFile -h true/false > eval_metrics.txt ```
 The flag ```h``` is used to indicate if the consensus_genotype_fileName.tsv has a header.
+
+For doublets run the script with a ```doublet``` flag:
+
+	``` python ../evaluateMetrics.py -cg consensus_genotype_fileName.tsv -gtG groundTruthFile -h true/false -doublet true -doubletFile doubletFileInformation > eval_metrics.txt ```
+	
 4. To evaluate the V-measure use the following script:
 
         ``` python ../evaluation.py -i "scg:"cluster_posteriors.tsv -G groundTruthFile -v >> eval_metrics.txt ```
@@ -111,11 +120,16 @@ The output of SCClone has the following two important files:
 1. The file 'data.cell_assignment' provides the assigned cluster number for each cell. And the file 'data.clone_genotypes' provided the genotypes for each cluster.
 2. Using these two files we can get the consensus genotype matrix. Use the following script to get the consensus genotype matrix:
 
-	``` python scclone_getGmatrix.py -ca data.cell_assignment -cg data.clone_genotypes -sim true -op consensus_genotype_fileName.tsv ```
+	``` python scclone_getGmatrix.py -ca data.cell_assignment -cg data.clone_genotypes -op consensus_genotype_fileName.tsv ```
 3. To evaluate the accuracy, sensitivity, specificity use the following script:
 
         ``` python ../evaluateMetrics.py -cg consensus_genotype_fileName.tsv -gtG groundTruthFile -h true/false > eval_metrics.txt ```
 The flag ```h``` is used to indicate if the consensus_genotype_fileName.tsv has a header.
+
+For doublets run the script with a ```doublet``` flag:
+
+	``` python ../evaluateMetrics.py -cg consensus_genotype_fileName.tsv -gtG groundTruthFile -h true/false -doublet true -doubletFile doubletFileInformation > eval_metrics.txt ```
+	
 4. To evaluate the V-measure use the following script:
 
         ``` python ../evaluation.py -i "scclone:"data.cell_assignment -G groundTruthFile -v >> eval_metrics.txt ```
