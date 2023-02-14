@@ -1,6 +1,7 @@
 import pandas as pd
 import argparse
 import numpy as np
+from random import randint, choice
 
 def get_doublet_cells(doublet_info_file):
     #doublet_info_file = "sim_input/"+simDataType+"/"+repNo+"/input_"+simDataType+"_"+repNo+".SNVcell.csv"
@@ -58,6 +59,8 @@ def calculate_metric_from_vectors(CG_df,GT_df):
     num_cells, num_mutation = CG_arr.shape
     total_entries = num_cells * num_mutation
     for x, y in np.ndindex(CG_arr.shape):
+        if CG_arr[x,y] == '?': # Since RobustClone have equal chance of having 0 or 1 we assign randomly anyone.
+            CG_arr[x,y] = randint(0, 1)
         if CG_arr[x,y] == GT_arr[x,y]:
             correctNos = correctNos+1
         if CG_arr[x,y] == 1 and GT_arr[x,y] == 1:
@@ -85,17 +88,17 @@ def calculate_metric_from_vectors(CG_df,GT_df):
 parser = argparse.ArgumentParser()
 parser.add_argument("-cg", "--cg",dest ="cg", help="Consensus genotype matrix")
 parser.add_argument("-gtG", "--gtG",dest ="gtG", help="Ground truth matrix")
-parser.add_argument("-h", "--h",dest ="header", help="Header present or absent")
+parser.add_argument("-header", "--header",dest ="header", help="Header present or absent")
 parser.add_argument("-doublet", "--doublet",dest ="doublet", help="Doublet data")
 parser.add_argument("-doubletFile", "--doubletFile",dest ="doubletFile", help="Doublet info file")
 args = parser.parse_args()
 
-if args.h == "false":
+if args.header == "false":
     CG_df = read_file(args.cg,"false")
 else:
     CG_df = read_file(args.cg,"true")
 
-GT_df = read_file(args.gtG,"true")
+GT_df = read_file(args.gtG,"false")
 
 if args.doublet == "true":
     doublet_cells_list = get_doublet_cells(args.doubletFile)

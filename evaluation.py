@@ -1,7 +1,7 @@
 import argparse
 import sys
 from sklearn.metrics.cluster import v_measure_score
-from usage import bnpc_assignment, scg_assignment, scclone_assignment
+from usage import bnpc_assignment, scg_assignment, scclone_assignment, robustclone_assignment, scite_assignment, siclonefit_assignment
 
 # make clu_supp each row composed of the cells in this cluster separated by ;
 def read_clu_results(file):
@@ -132,6 +132,9 @@ parser.add_argument('-v', '--v-measure', action='store_true')
 
 args = parser.parse_args()
 inputs = args.input_files.split(";")
+print(" ================================= ")
+print(inputs)
+print(" ================================= ")
 gt_f = args.gt_file
 # whether the ground truth file has one more row and column as the header or not (always assume it is cell by mutation no matter what)
 with_header = args.with_header
@@ -165,12 +168,26 @@ for i in inputs:
 
     elif method == "bnpc":
         clu_IDs = bnpc_assignment(result_file)
-        num_cells = len(clu_IDs) 
+        num_cells = len(clu_IDs)
+
+    elif method == "robustclone":
+        clu_IDs = robustclone_assignment(result_file)
+        num_cells = len(clu_IDs)
+
+    elif method == "scite":
+        clu_IDs = scite_assignment(result_file)
+        num_cells = len(clu_IDs)
+
+    elif method == "siclonefit":
+        clu_IDs = siclonefit_assignment(result_file)
+        num_cells = len(clu_IDs)
 
     if if_v_measure:
         if doublet == "true":
             doublet_cells_list = get_doublet_cells(args.doubletFile)
             clu_IDs, gt_IDs = remove_doublet_CG_GT(clu_IDs, gt_IDs, doublet_cells_list)
         print("Method is " + method + ". Number of cells from the inferred result: " + str(len(clu_IDs)) + ", versus that of ground truth: " + str(len(gt_IDs)))
+        print(" Cluster IDs ",clu_IDs)
+        print(" GT cluster IDs ",gt_IDs)
         v_measure = V_measure(clu_IDs, gt_IDs)
         print("V measure results for " + method + ": " + str(v_measure))
