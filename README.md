@@ -63,6 +63,7 @@ The flag ```header``` is used to indicate if the consensus_genotype_fileName.tsv
 For doublets run the script with a ```doublet``` flag:
 
 	``` python ../evaluation.py -i "bnpc:"assignment.txt -G groundTruthFile -d true -df doubletFileInformation -v >> eval_metrics.txt ```
+	
 	An example doublet information file is provided in ```bnpc/example_data```
 
 ## <a name="scg"></a>SCG ##
