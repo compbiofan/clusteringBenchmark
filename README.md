@@ -55,8 +55,7 @@ The output of BnpC has the following two important files:
 	``` python ../evaluateMetrics.py -cg consensus_genotype_fileName.tsv -gtG groundTruthFile -header true/false > eval_metrics.txt ```
 The flag ```header``` is used to indicate if the consensus_genotype_fileName.tsv has a header.
 
-For doublets run the script with a ```doublet``` flag:
-
+	For doublets run the script with a ```doublet``` flag:
 	``` python ../evaluateMetrics.py -cg consensus_genotype_fileName.tsv -gtG groundTruthFile -header true/false -doublet true -doubletFile doubletFileInformation > eval_metrics.txt ```
 4. To evaluate the V-measure use the following script:
 
@@ -64,6 +63,7 @@ For doublets run the script with a ```doublet``` flag:
 For doublets run the script with a ```doublet``` flag:
 
 	``` python ../evaluation.py -i "bnpc:"assignment.txt -G groundTruthFile -d true -df doubletFileInformation -v >> eval_metrics.txt ```
+	An example doublet information file is provided in ```bnpc/example_data```
 
 ## <a name="scg"></a>SCG ##
 
@@ -100,9 +100,11 @@ From the file 'genotype_posteriors.tsv.gz'  we get the genotype for each cluster
 	``` python ../evaluateMetrics.py -cg consensus_genotype_fileName.tsv -gtG groundTruthFile -header true/false > eval_metrics.txt ```
 The flag ```header``` is used to indicate if the consensus_genotype_fileName.tsv has a header.
 
-For doublets run the script with a ```doublet``` flag:
+	For doublets run the script with a ```doublet``` flag:
 
 	``` python ../evaluateMetrics.py -cg consensus_genotype_fileName.tsv -gtG groundTruthFile -header true/false -doublet true -doubletFile doubletFileInformation > eval_metrics.txt ```
+	
+	An example doublet information file is provided in ```scg/example_data```
 	
 4. To evaluate the V-measure use the following script:
 
@@ -137,7 +139,7 @@ The output of SCClone has the following two important files:
         ``` python ../evaluateMetrics.py -cg consensus_genotype_fileName.tsv -gtG groundTruthFile -header true/false > eval_metrics.txt ```
 The flag ```header``` is used to indicate if the consensus_genotype_fileName.tsv has a header.
 
-For doublets run the script with a ```doublet``` flag:
+	For doublets run the script with a ```doublet``` flag:
 
 	``` python ../evaluateMetrics.py -cg consensus_genotype_fileName.tsv -gtG groundTruthFile -header true/false -doublet true -doubletFile doubletFileInformation > eval_metrics.txt ```
 	
@@ -146,6 +148,7 @@ For doublets run the script with a ```doublet``` flag:
         ``` python ../evaluation.py -i "scclone:"data.cell_assignment -G groundTruthFile -v >> eval_metrics.txt ```
 For doublets run the script with a ``` doublet ``` flag:
 	``` python ../evaluation.py -i "scclone:"data.cell_assignment -G groundTruthFile -d true -df doubletFileInformation -v >> eval_metrics.txt ```
+	An example doublet information file is provided in ```scclone/example_data```
 
 ## <a name="rc"></a>RobustClone ##
 
