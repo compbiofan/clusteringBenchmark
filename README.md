@@ -2,7 +2,7 @@
 Benchmark of the clustering of scDNAseq cells. 
 
 ## Table of Contents
-- [Commands to run BnpC, SCG, SCClone, RobustClone, SCITE and SBMClone.](#commands_3methods)
+- [Commands to run BnpC, SCG, SCClone, RobustClone, SCITE, SBMClone and simulators.](#commands_3methods)
     * [BnpC](#bnpc)
     * [SCG](#scg)
     * [SCClone](#scclone)
