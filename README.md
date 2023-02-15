@@ -160,10 +160,10 @@ We have included an example input data to use available at ``` RobustClone/examp
 	Rscript carryout_clonal_tree_1.R output_file.mat clone_cells.csv clone_genotype.csv
 	```
 	* Parameters:
-                * Replace 'input_rc.csv' with the input genotype matrix. You can use the example data provided to test.
-                * Replace 'output_file.mat' with the output mat file name where you want to save the RPCA results. 
-                * Replace 'clone_cells.csv' with the file name where you want to save the cells belonging to cluster result.
-                * Replace 'clone_genotype.csv' with the file name where you want to save the clonal genotype.
+		* ```input_rc.csv``` should be replaced with the input genotype matrix. You can use the example data provided to test.
+		* ```output_file.mat``` should be replaced with the output mat file name where you want to save the RPCA results. 
+		*  ```clone_cells.csv``` should be replaced with the file name where you want to save the cells belonging to cluster result.
+		*  ```clone_genotype.csv``` should be replaced with the file name where you want to save the clonal genotype.
 
 The output of RobustClone has following two important files which we use to get the consensus genotype and cells assigned to each cluster for evaluation:
 
@@ -191,7 +191,7 @@ For doublets run the script with a ``` doublet ``` flag:
 
 1. Download SCITE from https://github.com/cbg-ethz/SCITE. To compile the C/C++ program, open a terminal and go to the folder containing the source files, and type the following for faster execution of SCITE
 	``` clang++ *.cpp -o scite -O3 ```
-2. SCITE's input requires the matrix to have the mutations as rows and cells as columns. The genotype values are separated by a space where 1 indicates presence of mutation, 0 indicates absence of mutation and 3 indicates missing data. We used the following script to get such input D matrix ``` python processInput.py -input input.D.csv -output outfileFileName ```. 
+2. SCITE's input requires the matrix to have the mutations as rows and cells as columns. The genotype values are separated by a space where 1 indicates presence of mutation, 0 indicates absence of mutation and 3 indicates missing data. We used the following script to get such input D matrix ``` python processInput.py -input input.D.csv -output outfileFileName ```. We have an example input in ```SCITE/example_data/example.D.csv```.
 3. Once you have SCITE installed you can run it using the following command:
 	* ``` SCITE/scite -i example.D.csv -n 200 -m 500 -r 1 -l 1565000 -fd 0.01 -ad 0.1 -a -max_treelist_size 1 -o outputDir ``` 
 	* Parameters:
@@ -238,7 +238,7 @@ Look for example doublet file in the 'SCITE/example_data'
 	conda install numpy scipy matplotlib networkx
 	conda install -c conda-forge graph-tool 
 	```
-2. The input to SBMClone is a binary mutation matrix where rows correspond to cells, columns correspond to mutations, and each entry is a 1 if the corresponding cell has the corresponding mutation or 0 otherwise (equivalently, 0-entries could be represented as ?). The input format is a comma-separated text file in which each line encodes the row and column indices of a single 1-entry. Take a look at the example data in 'sbmclone/example_data/example.sbm.csv' to understand the input. 
+2. The input to SBMClone is a binary mutation matrix where rows correspond to cells, columns correspond to mutations, and each entry is a 1 if the corresponding cell has the corresponding mutation or 0 otherwise (equivalently, 0-entries could be represented as ?). The input format is a comma-separated text file in which each line encodes the row and column indices of a single 1-entry. Take a look at the example data in ```sbmclone/example_data/example.sbm.csv``` to understand the input. 
 
 3. Once SBMClone is installed you can run the script in the following way:
 	* ``` python sbmclone.py example.sbm.csv -o outputDir ```
