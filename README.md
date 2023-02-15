@@ -97,22 +97,16 @@ From the file 'genotype_posteriors.tsv.gz'  we get the genotype for each cluster
 
 	``` python scg_getGmatrix.py -cp cluster_posteriors.tsv -gp genotype_posteriors.tsv.gz -D inputDMatrix -output consensus_genotype_fileName.tsv ```
 3. To evaluate the sensitivity, specificity use the following script:
-
 	``` python ../evaluateMetrics.py -cg consensus_genotype_fileName.tsv -gtG groundTruthFile -header true/false > eval_metrics.txt ```
 The flag ```header``` is used to indicate if the consensus_genotype_fileName.tsv has a header.
 
 For doublets run the script with a ```doublet``` flag:
-
 	``` python ../evaluateMetrics.py -cg consensus_genotype_fileName.tsv -gtG groundTruthFile -header true/false -doublet true -doubletFile doubletFileInformation > eval_metrics.txt ```
 	
 4. To evaluate the V-measure use the following script:
-
         ``` python ../evaluation.py -i "scg:"cluster_posteriors.tsv -G groundTruthFile -v >> eval_metrics.txt ```
  For doublets run the script with a ```doublet``` flag:
- 
-	``` 
-	python ../evaluation.py -i "scg:"cluster_posteriors.tsv -G groundTruthFile -d true -df doubletFileInformation -v >> eval_metrics.txt 
-	```
+	``` python ../evaluation.py -i "scg:"cluster_posteriors.tsv -G groundTruthFile -d true -df doubletFileInformation -v >> eval_metrics.txt ```
 An example doublet information file is provided in ```scg/example_data```
 
 ## <a name="scclone"></a>SCClone ##
@@ -138,18 +132,13 @@ The output of SCClone has the following two important files:
 
 	``` python scclone_getGmatrix.py -ca data.cell_assignment -cg data.clone_genotypes -op consensus_genotype_fileName.tsv ```
 3. To evaluate the sensitivity, specificity use the following script:
-
         ``` python ../evaluateMetrics.py -cg consensus_genotype_fileName.tsv -gtG groundTruthFile -header true/false > eval_metrics.txt ```
 The flag ```header``` is used to indicate if the consensus_genotype_fileName.tsv has a header.
 
 For doublets run the script with a ```doublet``` flag:
-
-	``` 
-	python ../evaluateMetrics.py -cg consensus_genotype_fileName.tsv -gtG groundTruthFile -header true/false -doublet true -doubletFile doubletFileInformation > eval_metrics.txt 
-	```
+	``` python ../evaluateMetrics.py -cg consensus_genotype_fileName.tsv -gtG groundTruthFile -header true/false -doublet true -doubletFile doubletFileInformation > eval_metrics.txt ```
 	
 4. To evaluate the V-measure use the following script:
-
         ``` python ../evaluation.py -i "scclone:"data.cell_assignment -G groundTruthFile -v >> eval_metrics.txt ```
 For doublets run the script with a ``` doublet ``` flag:
 	``` python ../evaluation.py -i "scclone:"data.cell_assignment -G groundTruthFile -d true -df doubletFileInformation -v >> eval_metrics.txt ```
@@ -188,10 +177,9 @@ The output of RobustClone has following two important files which we use to get 
 The flag ```header``` is used to indicate if the consensus_genotype_fileName.tsv has a header.
 
 For doublets run the script with a ```doublet``` flag:
-
 	``` python ../evaluateMetrics.py -cg consensus_genotype_fileName.tsv -gtG groundTruthFile -header true -doublet true -doubletFile doubletFileInformation > eval_metrics.txt ```
-4. To evaluate the V-measure use the following script:
 
+4. To evaluate the V-measure use the following script:
 	``` python ../evaluation.py -i "robustclone:"assignment.txt -G groundTruthFile -v ```
 For doublets run the script with a ``` doublet ``` flag:
 	``` python ../evaluation.py -i "robustclone:"assignment.txt -G groundTruthFile -d true -df doubletFileInformation -v ```
