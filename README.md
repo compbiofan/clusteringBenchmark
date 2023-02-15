@@ -103,18 +103,17 @@ The flag ```header``` is used to indicate if the consensus_genotype_fileName.tsv
 
 For doublets run the script with a ```doublet``` flag:
 
-	```python ../evaluateMetrics.py -cg consensus_genotype_fileName.tsv -gtG groundTruthFile -header true/false -doublet true -doubletFile doubletFileInformation > eval_metrics.txt```
+	``` python ../evaluateMetrics.py -cg consensus_genotype_fileName.tsv -gtG groundTruthFile -header true/false -doublet true -doubletFile doubletFileInformation > eval_metrics.txt ```
 	
 4. To evaluate the V-measure use the following script:
-        ``` 
-	python ../evaluation.py -i "scg:"cluster_posteriors.tsv -G groundTruthFile -v >> eval_metrics.txt 
-	```
+
+        ``` python ../evaluation.py -i "scg:"cluster_posteriors.tsv -G groundTruthFile -v >> eval_metrics.txt ```
  For doublets run the script with a ```doublet``` flag:
  
 	``` 
 	python ../evaluation.py -i "scg:"cluster_posteriors.tsv -G groundTruthFile -d true -df doubletFileInformation -v >> eval_metrics.txt 
 	```
-	An example doublet information file is provided in ```scg/example_data```
+An example doublet information file is provided in ```scg/example_data```
 
 ## <a name="scclone"></a>SCClone ##
 
