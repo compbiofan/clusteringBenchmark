@@ -9,8 +9,8 @@ Benchmark of the clustering of scDNAseq cells.
     * [RobustClone](#rcclone)
     * [SCITE](#scite)
     * [SBMClone](#sbmclone)
-    * [UltraLow coverage simulator](#ucsim)
     * [Simulator](#simulator)
+    * [UltraLow coverage simulator](#ucsim)
 
 # <a name="usage_of_scDNAseq_clustering"></a>Usage of scDNAseq Clustering.
 ## <a name="software_requirements"></a>Software Requirements ##
@@ -256,20 +256,6 @@ Look for example doublet file in the 'SCITE/example_data'
 	``` python ../evaluation.py -i "scclone:"assignment.txt -G groundTruthFile -v ```
 We use "scclone" here because the assignment.txt is same as SCClone's assignment.txt file.
 
-## <a name="ucsim"></a>UltraLow coverage simulator ##
-
-### Steps to run the ultralow coverage simulator using different variables. ###
-
-1. We use an existing tree as an input to the simulator to get the ultralow coverage datasets. There is an example tree in 'ultraLowCoverage_simulator/example_tree.csv' that can be used as an input.
-2. Run the simulator using the following script:
-	* ``` python sim_par.py -f example_tree.csv -c 4000 -n 5000 -cov 0.01 -P output_dir ```
-	* Parameters:
-		* ```-f``` pass the tree as input.
-		* ```-c``` number of cells.
-		* ```-n``` number of mutations.
-		* ```-cov``` the coverage desired for the data.
-		* ```-P``` the prefix and directory for output files.
-
 ## <a name="simulator"></a>Simulator ##
 
 ### Steps to run the simulator using different variables. ###
@@ -292,6 +278,22 @@ We use "scclone" here because the assignment.txt is same as SCClone's assignment
 		* ```-e``` doublet rate.
 		* ```-f``` the tree generated earlier using number of leaves and beta splitting variable.
 		* ```-P``` the prefix and directory for output files.
+
+## <a name="ucsim"></a>UltraLow coverage simulator ##
+
+### Steps to run the ultralow coverage simulator using different variables. ###
+
+1. We use an existing tree as an input to the simulator to get the ultralow coverage datasets. There is an example tree in 'ultraLowCoverage_simulator/example_tree.csv' that can be used as an input.
+2. Run the simulator using the following script:
+	* ``` python sim_par.py -f example_tree.csv -c 4000 -n 5000 -cov 0.01 -P output_dir ```
+	* Parameters:
+		* ```-f``` pass the tree as input.
+		* ```-c``` number of cells.
+		* ```-n``` number of mutations.
+		* ```-cov``` the coverage desired for the data.
+		* ```-P``` the prefix and directory for output files.
+
+
 
 
 
