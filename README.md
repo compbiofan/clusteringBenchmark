@@ -153,13 +153,13 @@ For doublets run the script with a ```doublet``` flag:
         ``` python ../evaluation.py -i "scclone:"data.cell_assignment -G groundTruthFile -v >> eval_metrics.txt ```
 For doublets run the script with a ``` doublet ``` flag:
 	``` python ../evaluation.py -i "scclone:"data.cell_assignment -G groundTruthFile -d true -df doubletFileInformation -v >> eval_metrics.txt ```
-	An example doublet information file is provided in ```scclone/example_data```
+	An example doublet information file is provided in ```scclone/example_data```.
 
 ## <a name="rc"></a>RobustClone ##
 
 ### Installing the software and preparing the files. These steps are general for all datasets, but they should be done only once. ###
 
-1. The folder ``` RobustClone ``` have all the modified scripts required to run the experiments. It accepts a binary genotype matrix cells as rows and mutations as columns. The columns are comma separated with 0 indicating absence of mutation, 1 indicating presence of mutation and 3 indicating genotype information is missing.
+1. The folder ``` RobustClone ``` have all the modified scripts required to run the experiments. It accepts a binary genotype matrix cells as rows and mutations as columns. The columns are comma separated with 0 indicating absence of mutation, 1 indicating presence of mutation and 3 indicating genotype information is missing. RobustClone requires its columns and indices to be annotated. We used this script to annotate it ``` python processInput.py -input input.D.csv -output input_rc.csv -mut 200 ``` where we passed the input file, desired output file and the number of mutations as parameters.
 
 We have included an example input data to use available at ``` RobustClone/exampledata/input_rc.csv ```.
 
@@ -195,6 +195,7 @@ For doublets run the script with a ```doublet``` flag:
 	``` python ../evaluation.py -i "robustclone:"assignment.txt -G groundTruthFile -v ```
 For doublets run the script with a ``` doublet ``` flag:
 	``` python ../evaluation.py -i "robustclone:"assignment.txt -G groundTruthFile -d true -df doubletFileInformation -v ```
+	An example doublet information file is provided in ```RobustClone/exampledata```.
 
 ## <a name="rc"></a>SCITE ##
 
@@ -202,7 +203,8 @@ For doublets run the script with a ``` doublet ``` flag:
 
 1. Download SCITE from https://github.com/cbg-ethz/SCITE. To compile the C/C++ program, open a terminal and go to the folder containing the source files, and type the following for faster execution of SCITE
 	``` clang++ *.cpp -o scite -O3 ```
-2. Once you have SCITE installed you can run it using the following command:
+2. SCITE's input requires the matrix to have the mutations as rows and cells as columns. The genotype values are separated by a space where 1 indicates presence of mutation, 0 indicates absence of mutation and 3 indicates missing data. We used the following script to get such input D matrix ``` python processInput.py -input input.D.csv -output outfileFileName ```. 
+3. Once you have SCITE installed you can run it using the following command:
 	* ``` SCITE/scite -i example.D.csv -n 200 -m 500 -r 1 -l 1565000 -fd 0.01 -ad 0.1 -a -max_treelist_size 1 -o outputDir ``` 
 	* Parameters:
 		* ```-i``` indicates the input D matrix to pass. SCITE's input matrix should have mutations as rows and cells as columns. The genotype values are separated by a space where 1 indicates presence of mutation, 0 indicates absence of mutation and 3 indicates missing data.
@@ -216,7 +218,7 @@ For doublets run the script with a ``` doublet ``` flag:
 		* ```-max_treelist_size``` This limits the number of co-optimal trees written to output files to the specified value. (OPTIONAL)
 		* ```-o``` indicates the output directory to save the results. (OPTIONAL)
 
-3. Running SCITE will give an output file having the tree and cells attached to the tree saved as a '.gv' file. From here we can get the clones having the cells and the consensus genotype using the following script:
+4. Running SCITE will give an output file having the tree and cells attached to the tree saved as a '.gv' file. From here we can get the clones having the cells and the consensus genotype using the following script:
 	* ``` python processOutput.py -input example.D.csv -tree output_ml0.gv -noOfCells 500 -op_ass assignment.txt -op_gen consensus_genotype.csv ``` 
 	* Parameters (ALL REQUIRED):
 		* ```-input``` pass the input D matrix.
@@ -225,17 +227,17 @@ For doublets run the script with a ``` doublet ``` flag:
 		* ```-op_ass``` the filename to save the assignment of cells to clones.
 		* ```-op_gen``` the filename to save the consensus genotype matrix.
 
-3. To evaluate the sensitivity, specificity use the following script:
+5. To evaluate the sensitivity, specificity use the following script:
 	``` python ../evaluateMetrics.py -cg consensus_genotype.csv -gtG groundTruthFile -header true > eval_metrics.txt ```
 For doublets run the script with a ```doublet``` flag:
 	``` python ../evaluateMetrics.py -cg consensus_genotype.csv -gtG groundTruthFile -header true -doublet true -doubletFile doubletFileInformation > eval_metrics.txt ```
 
-4. To get the V-measure use the following script:
+6. To get the V-measure use the following script:
 	``` python ../evaluation.py -i "scite:"assignment.txt -G groundTruthFile -v >> eval_metrics.txt ```
 For doublets run the script with a ```doublet``` flag:
 	``` python ../evaluation.py -i "scite:"assignment.txt -G groundTruthFile -d true -df doubletFileInformation -v >> eval_metrics.txt ```
 
-Look for example doublet file in the 'scg/example_data/example_doubletInfoFile.csv'
+Look for example doublet file in the 'SCITE/example_data'
 
 ## <a name="sbmclone"></a>SBMClone ##
 
